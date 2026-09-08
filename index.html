@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE ODY-Z — Street Party — 10.31.2026</title>
 <meta name="description" content="THE ODY-Z — a Halloween street party. October 31, 2026. RSVP, partner with us, or just come as you are.">
-<link rel="icon" href="logo-ody-z.jpg">
+<link rel="icon" href="assets/logo-ody-z.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -73,9 +73,9 @@
     background:rgba(7,8,10,0.75);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;max-width:1080px;margin:0 auto;gap:10px;}
-  .logo-img{height:30px;width:auto;flex-shrink:0;border-radius:4px;}
-  @media(min-width:820px){.logo-img{height:36px;}}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1080px;margin:0 auto;gap:10px;}
+  .logo-img{height:36px;width:auto;flex-shrink:0;}
+  @media(min-width:820px){.logo-img{height:46px;}}
   .nav-links{display:none;gap:6px;align-items:center;}
   .nav-links a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--text-dim);white-space:nowrap;}
   .nav-links a:hover{color:var(--text);background:var(--panel-2);}
@@ -93,16 +93,33 @@
     overflow:hidden;
     background:#07080a;
   }
-  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.55;}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 22%;opacity:0.85;}
   .hero-scrim{
     position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(7,8,10,0.55) 0%, rgba(7,8,10,0.55) 40%, rgba(7,8,10,0.92) 100%),
-               radial-gradient(ellipse at 50% 30%, rgba(7,8,10,0.1) 0%, rgba(7,8,10,0.75) 75%);
+    background:linear-gradient(180deg, rgba(7,8,10,0.25) 0%, rgba(7,8,10,0.35) 38%, rgba(7,8,10,0.95) 100%),
+               radial-gradient(ellipse at 50% 30%, rgba(7,8,10,0.05) 0%, rgba(7,8,10,0.55) 78%);
   }
   #embers{position:absolute;inset:0;width:100%;height:100%;}
   .hero-inner{position:relative;z-index:2;max-width:760px;}
-  .hero .eyebrow{display:block;margin-bottom:22px;}
-  .hero-logo{width:min(280px,64vw);margin:0 auto;filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));border-radius:10px;}
+  .hero .eyebrow{display:block;margin-bottom:14px;}
+  /* Text wordmark instead of a logo image here — the hero photo already
+     carries the real "THE ODY-Z" billboard, so a second logo on top of it
+     just competed for attention. On narrow (mobile) viewports the photo's
+     billboard can get cropped by object-fit:cover, so this wordmark is what
+     keeps the branding unmistakably ODY-Z at every screen size. */
+  .hero-wordmark{
+    font-family:'Anton',sans-serif;font-weight:400;letter-spacing:1px;line-height:0.88;
+    font-size:clamp(56px,17vw,128px);
+    margin:0;
+    background:linear-gradient(180deg,#f5f9ff 0%,#bcd9ff 45%,#4f9dff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 10px 34px rgba(0,0,0,0.65));
+  }
+  .hero-wordmark .the{
+    display:block;font-family:'Inter',sans-serif;font-weight:800;letter-spacing:7px;
+    font-size:clamp(12px,3.2vw,16px);color:var(--text-dim);-webkit-text-fill-color:var(--text-dim);
+    background:none;margin-bottom:10px;
+  }
   .hero .date{
     margin-top:22px;
     font-family:'Inter',sans-serif;font-weight:800;font-size:20px;letter-spacing:2px;
@@ -255,7 +272,7 @@
   footer{
     padding:50px 24px 40px;text-align:center;border-top:1px solid var(--line);
   }
-  footer .logo-img{margin:0 auto 18px;height:34px;}
+  footer .logo-img{margin:0 auto 18px;height:30px;}
   footer p{color:var(--text-faint);font-size:13px;max-width:480px;margin:6px auto;}
   footer a.email{color:var(--blue);text-decoration:none;font-weight:600;}
 
@@ -266,28 +283,29 @@
 
 <header class="site">
   <div class="nav">
-    <img class="logo-img" src="logo-ody-z.jpg" alt="THE ODY-Z">
+    <a href="index.html" style="display:flex;"><img class="logo-img" src="assets/logo-nav.jpg" alt="THE ODY-Z"></a>
     <nav class="nav-links">
-      <a href="#the-night">The Night</a>
-      <a href="#rsvp">RSVP</a>
-      <a href="#sponsors">Partner With Us</a>
+      <a href="index.html#the-night">The Night</a>
+      <a href="the-legend.html">The Legend</a>
+      <a href="index.html#rsvp">RSVP</a>
+      <a href="partners.html">Partners</a>
     </nav>
-    <a href="#rsvp" class="btn btn-primary nav-cta">RSVP</a>
+    <a href="index.html#rsvp" class="btn btn-primary nav-cta">RSVP</a>
   </div>
 </header>
 
 <section class="hero">
-  <img class="hero-bg" src="hero-wide.jpg" alt="" aria-hidden="true">
+  <img class="hero-bg" src="assets/hero-wide.jpg" alt="" aria-hidden="true">
   <div class="hero-scrim"></div>
   <canvas id="embers"></canvas>
   <div class="hero-inner">
-    <span class="eyebrow">A Z Hostel Street Takeover</span>
-    <img class="hero-logo" src="logo-ody-z.jpg" alt="THE ODY-Z">
+    <span class="eyebrow">A Homecoming — Z Hostel Street Takeover</span>
+    <h1 class="hero-wordmark"><span class="the">THE</span>ODY-Z</h1>
     <div class="date">10 · 31 · 2026</div>
-    <p class="tagline">One night. One street. No rules but the ones you bring with you. Come in character — or don't come at all.</p>
+    <p class="tagline">The journey began in Poblacion. This year, it comes home. Heed the calling — gather your crew and set sail for one immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
-      <a href="#sponsors" class="btn btn-ghost">Partner With Us</a>
+      <a href="partners.html" class="btn btn-ghost">Partner With Us</a>
     </div>
     <div class="countdown" id="countdown">
       <div class="cell"><span class="num" id="cd-days">–</span><span class="lbl">Days</span></div>
@@ -301,17 +319,17 @@
 <section id="the-night">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">What To Expect</span>
+      <span class="eyebrow">What Awaits You</span>
       <h2>The street becomes the arena.</h2>
-      <p>Flags overhead, embers in the air, and a crowd that showed up in costume. Bring your people — this is a night built to be shared.</p>
+      <p>Flags overhead, embers in the air, and a crowd that answered the same calling. This is no ordinary night out — it's the odyssey Poblacion has been building toward all year. Gather your crew; the street is waiting.</p>
     </div>
     <div class="gallery">
       <figure>
-        <img src="billboard-gowns.jpg" alt="Guests in evening wear looking up at THE ODY-Z billboard" loading="lazy">
+        <img src="assets/billboard-gowns.jpg" alt="Guests in evening wear looking up at THE ODY-Z billboard" loading="lazy">
         <figcaption>Dress code: elevated, dramatic, a little dangerous.</figcaption>
       </figure>
       <figure>
-        <img src="billboard-helmet.jpg" alt="Guest wearing a gladiator-style helmet ahead of the party" loading="lazy">
+        <img src="assets/billboard-helmet.jpg" alt="Guest wearing a gladiator-style helmet ahead of the party" loading="lazy">
         <figcaption>Or go full character. We won't stop you.</figcaption>
       </figure>
     </div>
@@ -331,9 +349,9 @@
 <section id="rsvp">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Guest List</span>
+      <span class="eyebrow">Join The Crew</span>
       <h2>RSVP for the night.</h2>
-      <p>One tap per question. You're on the list the moment you finish step one — everything after that just helps us plan.</p>
+      <p>One tap per question. You're on the list the moment you finish step one — everything after that just helps us chart the course.</p>
     </div>
 
     <div class="card">
@@ -376,7 +394,7 @@
 
         <!-- STEP: drink preference -->
         <div class="step" data-step="drink_pref">
-          <div class="perk-note">💡 <span><b>You're on the list.</b> These next few are optional, one tap each — answer at least 3 and we'll stamp a bonus perk on your ticket.</span></div>
+          <div class="perk-note">⚓ <span><b>You've made the crew.</b> These next few are optional, one tap each — answer at least 3 and we'll stamp a bonus perk on your ticket.</span></div>
           <div class="q-head"><h3>What's usually in your hand at a night out?</h3></div>
           <div class="chipset big stack ember" data-group="drink_pref" data-autoadvance="true">
             <div class="chip" data-value="Beer">Beer</div>
@@ -389,24 +407,14 @@
           <button type="button" class="skip-all" data-action="skip-to-final">Skip all remaining questions — just get my ticket</button>
         </div>
 
-        <!-- STEP: vape -->
-        <div class="step" data-step="vape">
-          <div class="q-head"><h3>Vape or smoke?</h3></div>
-          <div class="chipset big stack ember" data-group="vape" data-autoadvance="true">
-            <div class="chip" data-value="Regularly">Regularly</div>
-            <div class="chip" data-value="Occasionally">Occasionally</div>
-            <div class="chip" data-value="Never">Never</div>
-            <div class="chip" data-value="Prefer not to say">Prefer not to say</div>
-          </div>
-        </div>
-
-        <!-- STEP: matcha or ube -->
-        <div class="step" data-step="matcha_or_ube">
-          <div class="q-head"><h3>Team Matcha or Team Ube? 👀</h3></div>
-          <div class="chipset big stack ember" data-group="matcha_or_ube" data-autoadvance="true">
-            <div class="chip" data-value="Matcha">Matcha</div>
-            <div class="chip" data-value="Ube">Ube</div>
-            <div class="chip" data-value="Both, don't make me choose">Both, don't make me choose</div>
+        <!-- STEP: staying over (real business intel: are street-party crowd also hostel guests?) -->
+        <div class="step" data-step="staying_over">
+          <div class="q-head"><h3>Sailing in from out of town?</h3><p>Where you're crashing after the last ferry home.</p></div>
+          <div class="chipset big stack ember" data-group="staying_over" data-autoadvance="true">
+            <div class="chip" data-value="Staying at Z Hostel">Staying at Z Hostel</div>
+            <div class="chip" data-value="Staying elsewhere in Poblacion">Staying elsewhere in Poblacion</div>
+            <div class="chip" data-value="Just here for the night, heading home">Just here for the night, heading home</div>
+            <div class="chip" data-value="Still deciding">Still deciding</div>
           </div>
         </div>
 
@@ -489,7 +497,7 @@
     <div class="section-head">
       <span class="eyebrow">Brands & Partners</span>
       <h2>Put your brand on the street.</h2>
-      <p>We're bringing on a short list of sponsors and partners for ODY-Z. Tell us who you are and what you're thinking — we'll follow up directly.</p>
+      <p>Ten years of Z Street parties. 300,000+ attendees and counting. See the numbers and the packages on <a href="partners.html" style="color:var(--blue);font-weight:700;">our partners page</a> — then tell us who you are below and we'll follow up directly.</p>
     </div>
 
     <div class="card">
@@ -531,10 +539,11 @@
           <label for="s-budget">Budget range <span class="opt">(optional — helps us tailor a package)</span></label>
           <select id="s-budget" name="budget">
             <option value="">Prefer not to say / let's discuss</option>
-            <option value="Under ₱25k">Under ₱25k</option>
-            <option value="₱25k – ₱100k">₱25k – ₱100k</option>
-            <option value="₱100k – ₱300k">₱100k – ₱300k</option>
-            <option value="₱300k+">₱300k+</option>
+            <option value="Standard – ₱300,000">Standard – ₱300,000</option>
+            <option value="Bronze – ₱500,000">Bronze – ₱500,000</option>
+            <option value="Silver – ₱1,000,000">Silver – ₱1,000,000</option>
+            <option value="Gold – ₱1,500,000">Gold – ₱1,500,000</option>
+            <option value="Platinum – ₱2,000,000">Platinum – ₱2,000,000</option>
             <option value="In-kind / product only">In-kind / product only</option>
           </select>
           <div class="budget-hint">This just helps us pitch the right package — no commitment.</div>
@@ -560,14 +569,15 @@
 </section>
 
 <footer>
-  <img class="logo-img" src="logo-ody-z.jpg" alt="THE ODY-Z" style="margin-left:auto;margin-right:auto;">
+  <img class="logo-img" src="assets/logo-nav.jpg" alt="THE ODY-Z" style="margin-left:auto;margin-right:auto;">
+  <p style="margin-top:2px;"><a href="the-legend.html" style="color:var(--text-dim);text-decoration:underline;">The Legend</a> &nbsp;·&nbsp; <a href="index.html#rsvp" style="color:var(--text-dim);text-decoration:underline;">RSVP</a> &nbsp;·&nbsp; <a href="partners.html" style="color:var(--text-dim);text-decoration:underline;">Partners</a></p>
   <p>Questions before the night? <a class="email" href="mailto:events@zhostel.com">events@zhostel.com</a></p>
   <p>Your info is used only to plan ODY-Z and get you through the door — we don't sell it to anyone.</p>
   <p>© 2026 Soleiya / Z Hostel. THE ODY-Z is an 18+ event.</p>
 </footer>
 
-<script src="qrcode.lib.js"></script>
-<script src="supabase.bundle.js"></script>
+<script src="assets/qrcode.lib.js"></script>
+<script src="assets/supabase.bundle.js"></script>
 <script>
 /* =========================================================================
    CONFIG
@@ -577,7 +587,7 @@ const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
 const EVENT_DATE_ISO = "2026-10-31T18:00:00+08:00"; // party start, Manila time
 const FALLBACK_EMAIL = "events@zhostel.com"; // shown to guests only if the database call fails
 
-// supabase-js is vendored locally (supabase.bundle.js) rather than
+// supabase-js is vendored locally (assets/supabase.bundle.js) rather than
 // loaded from a CDN, so the whole page still works if jsdelivr/unpkg is
 // slow, blocked by a network filter, or down — same reasoning as vendoring
 // the QR library.
@@ -760,7 +770,7 @@ function chipValues(groupEl){
   // Multi-select chips just toggle; their screen has its own Continue button.
   document.querySelectorAll('#rsvp-form .chipset').forEach(group => {
     const isMulti = group.dataset.multi === 'true';
-    group.addEventListener('click', (e) => {
+    group.addEventListener('click', async (e) => {
       const chip = e.target.closest('.chip');
       if (!chip) return;
       if (isMulti){
@@ -772,7 +782,15 @@ function chipValues(groupEl){
         if (group.classList.contains('ember')) chip.classList.add('ember-sel');
         if (group.dataset.autoadvance === 'true'){
           const field = group.dataset.group;
-          saveProgress({ [field]: chip.dataset.value });
+          // Await the save before advancing — a fire-and-forget call here let
+          // the guest jump to the next step before the row existed yet, and
+          // if a later step's save then raced ahead of this one's insert, the
+          // slower response could overwrite the newer one. Awaiting also
+          // means rowExists is reliably set before the next step tries to
+          // save, so every save after the first is a plain UPDATE.
+          group.style.pointerEvents = 'none';
+          await saveProgress({ [field]: chip.dataset.value });
+          group.style.pointerEvents = '';
           setTimeout(nextStep, 260); // brief pause so the tap registers visually
         }
       }
@@ -858,7 +876,7 @@ function chipValues(groupEl){
       ticket_id: ticketId,
       completed: true,
     };
-    const answeredExtras = ['drink_pref','vape','matcha_or_ube','going_out_style','interests','age_bracket']
+    const answeredExtras = ['drink_pref','staying_over','going_out_style','interests','age_bracket']
       .filter(k => answers[k]).length;
     const perk = answeredExtras >= 3 ? 'Skip-the-line at the door' : null;
     finalAnswers.bonus_perk = perk || 'None';
