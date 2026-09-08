@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE ODY-Z — Street Party — 10.31.2026</title>
+<meta name="description" content="THE ODY-Z — a Halloween street party. October 31, 2026. RSVP, partner with us, or just come as you are.">
+<link rel="icon" href="logo-ody-z.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #07080a;
+    --bg-soft: #0e1013;
+    --panel: #131519;
+    --panel-2: #1a1d22;
+    --line: rgba(255,255,255,0.08);
+    --text: #f2f2f0;
+    --text-dim: #a8adb5;
+    --text-faint: #6b7078;
+    --blue: #4f9dff;
+    --blue-glow: rgba(79,157,255,0.55);
+    --ember: #ff6a3d;
+    --ember-2: #ff9142;
+    --teal: #1f5b57;
+    --maroon: #6e2430;
+    --gold: #c9a35a;
+    --danger: #ff6b6b;
+    --ok: #58d68d;
+    --radius: 14px;
+    --radius-sm: 8px;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:0.5px;line-height:1.05;margin:0;}
+  .eyebrow{
+    font-family:'Inter',sans-serif;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+    font-size:12px;color:var(--ember-2);
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:15px 28px;border-radius:999px;border:none;cursor:pointer;
+    font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.3px;
+    text-decoration:none;transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:linear-gradient(135deg,var(--blue),#2f7de0);color:#04101f;box-shadow:0 8px 24px -6px var(--blue-glow);}
+  .btn-primary:hover{box-shadow:0 10px 30px -4px var(--blue-glow);}
+  .btn-ember{background:linear-gradient(135deg,var(--ember-2),var(--ember));color:#2a0d02;box-shadow:0 8px 24px -6px rgba(255,106,61,0.45);}
+  .btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:rgba(255,255,255,0.3);}
+  .btn[disabled]{opacity:0.45;cursor:not-allowed;}
+  .btn-block{width:100%;}
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(7,8,10,0.75);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;max-width:1080px;margin:0 auto;gap:10px;}
+  .logo-img{height:30px;width:auto;flex-shrink:0;border-radius:4px;}
+  @media(min-width:820px){.logo-img{height:36px;}}
+  .nav-links{display:none;gap:6px;align-items:center;}
+  .nav-links a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--text-dim);white-space:nowrap;}
+  .nav-links a:hover{color:var(--text);background:var(--panel-2);}
+  @media(min-width:820px){.nav-links{display:flex;}}
+  .nav-cta{padding:10px 18px;font-size:13px;flex-shrink:0;}
+  @media(min-width:820px){.nav-cta{padding:15px 28px;font-size:15px;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:96vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:100px 24px 60px;
+    overflow:hidden;
+    background:#07080a;
+  }
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.55;}
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(7,8,10,0.55) 0%, rgba(7,8,10,0.55) 40%, rgba(7,8,10,0.92) 100%),
+               radial-gradient(ellipse at 50% 30%, rgba(7,8,10,0.1) 0%, rgba(7,8,10,0.75) 75%);
+  }
+  #embers{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-inner{position:relative;z-index:2;max-width:760px;}
+  .hero .eyebrow{display:block;margin-bottom:22px;}
+  .hero-logo{width:min(280px,64vw);margin:0 auto;filter:drop-shadow(0 10px 40px rgba(0,0,0,0.6));border-radius:10px;}
+  .hero .date{
+    margin-top:22px;
+    font-family:'Inter',sans-serif;font-weight:800;font-size:20px;letter-spacing:2px;
+    color:var(--ember-2);
+  }
+  .hero p.tagline{
+    margin:20px auto 0;max-width:520px;color:var(--text-dim);font-size:17px;
+  }
+  .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px;}
+
+  .countdown{
+    display:flex;gap:10px;justify-content:center;margin-top:44px;flex-wrap:wrap;
+  }
+  .countdown .cell{
+    background:rgba(19,21,25,0.8);border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:12px 16px;min-width:72px;backdrop-filter:blur(6px);
+  }
+  .countdown .cell .num{font-family:'Anton',sans-serif;font-size:30px;color:var(--text);display:block;}
+  .countdown .cell .lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:90px 0;position:relative;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 48px;}
+  .section-head h2{font-size:clamp(32px,5vw,48px);margin-top:12px;}
+  .section-head p{color:var(--text-dim);margin-top:14px;font-size:16px;}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);}
+
+  /* ---------- ATMOSPHERE / GALLERY ---------- */
+  .gallery{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.gallery{grid-template-columns:1fr 1fr;}}
+  .gallery figure{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);position:relative;background:var(--panel);}
+  .gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;}
+  .gallery figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:18px;
+    background:linear-gradient(0deg,rgba(0,0,0,0.75),transparent);
+    font-size:13px;color:var(--text-dim);font-weight:600;
+  }
+  .chips-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px;}
+  .tag{
+    font-size:12px;font-weight:700;letter-spacing:0.5px;padding:8px 16px;border-radius:999px;
+    border:1px solid var(--line);color:var(--text-dim);background:var(--panel);
+  }
+
+  /* ---------- CARD / FORM SHELL ---------- */
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:36px;max-width:640px;margin:0 auto;position:relative;
+  }
+  @media(max-width:640px){.card{padding:24px;border-radius:var(--radius-sm);}}
+
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-dim);}
+  .field label .req{color:var(--ember-2);}
+  .field label .opt{color:var(--text-faint);font-weight:500;text-transform:none;letter-spacing:0;}
+  .field input[type=text],
+  .field input[type=email],
+  .field input[type=tel],
+  .field select,
+  .field textarea{
+    width:100%;padding:13px 14px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--bg-soft);color:var(--text);
+    font-family:'Inter',sans-serif;font-size:15px;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);}
+  .field textarea{resize:vertical;min-height:90px;}
+  .row2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:520px){.row2{grid-template-columns:1fr 1fr;}}
+
+  .chipset{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    padding:14px 20px;border-radius:999px;border:1px solid var(--line);background:var(--bg-soft);
+    color:var(--text);font-size:15px;font-weight:600;cursor:pointer;user-select:none;
+    transition:all .12s ease;
+  }
+  .chip:hover{border-color:rgba(255,255,255,0.3);transform:translateY(-1px);}
+  .chip.sel{background:linear-gradient(135deg,var(--blue),#2f7de0);color:#04101f;border-color:transparent;}
+  .chip.sel.ember-sel{background:linear-gradient(135deg,var(--ember-2),var(--ember));color:#2a0d02;}
+  .chipset.big .chip{padding:18px 22px;font-size:16px;flex:1 1 auto;text-align:center;}
+  .chipset.stack{flex-direction:column;}
+  .chipset.stack .chip{width:100%;}
+
+  .step{display:none;}
+  .step.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .progress-bar{height:4px;border-radius:2px;background:var(--line);margin-bottom:28px;overflow:hidden;}
+  .progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--ember-2));border-radius:2px;transition:width .35s ease;width:0%;}
+
+  .q-head{margin-bottom:22px;}
+  .q-head h3{font-size:22px;margin-bottom:6px;}
+  .q-head p{color:var(--text-faint);font-size:13.5px;margin:0;}
+
+  .step-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;}
+  .skip-link{font-size:13px;color:var(--text-faint);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit;padding:8px 0;}
+  .skip-link:hover{color:var(--text-dim);}
+  .skip-all{display:block;text-align:center;margin-top:18px;font-size:12.5px;color:var(--text-faint);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit;width:100%;}
+
+  .helper{font-size:12.5px;color:var(--text-faint);margin-top:6px;}
+  .perk-note{
+    display:flex;gap:10px;align-items:flex-start;background:rgba(79,157,255,0.08);
+    border:1px solid rgba(79,157,255,0.25);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:26px;
+    font-size:13.5px;color:var(--text-dim);
+  }
+  .perk-note b{color:var(--text);}
+
+  .form-msg{display:none;padding:14px 16px;border-radius:var(--radius-sm);font-size:14px;margin-top:16px;}
+  .form-msg.show{display:block;}
+  .form-msg.err{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.35);color:#ffb3b3;}
+  .form-msg.err a{color:#fff;text-decoration:underline;}
+
+  .saved-toast{
+    position:absolute;top:14px;right:14px;
+    background:rgba(88,214,141,0.14);border:1px solid rgba(88,214,141,0.4);color:var(--ok);
+    font-size:11.5px;font-weight:700;letter-spacing:0.3px;padding:6px 12px;border-radius:999px;
+    opacity:0;transform:translateY(-4px);transition:opacity .25s ease, transform .25s ease;pointer-events:none;
+  }
+  .saved-toast.show{opacity:1;transform:translateY(0);}
+
+  /* ---------- TICKET / QR REVEAL ---------- */
+  .ticket{
+    background:linear-gradient(160deg,#101319,#0a0c0f);
+    border:1px solid rgba(79,157,255,0.3);border-radius:var(--radius);
+    padding:32px;text-align:center;
+  }
+  .ticket .ok-badge{
+    width:52px;height:52px;border-radius:50%;background:rgba(88,214,141,0.15);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:26px;
+  }
+  .ticket h3{font-size:26px;margin-bottom:6px;}
+  .ticket p.sub{color:var(--text-dim);font-size:14px;margin-bottom:24px;}
+  .qr-frame{
+    background:#fff;border-radius:12px;padding:16px;display:inline-block;margin-bottom:18px;
+  }
+  #qr-canvas{display:block;image-rendering:pixelated;}
+  .ticket-id{
+    font-family:'Anton',sans-serif;letter-spacing:2px;font-size:20px;color:var(--blue);
+    margin-bottom:4px;
+  }
+  .ticket-name{color:var(--text-dim);font-size:14px;margin-bottom:4px;}
+  .perk-badge{
+    display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;
+    background:linear-gradient(135deg,var(--ember-2),var(--ember));color:#2a0d02;
+    font-size:12px;font-weight:800;letter-spacing:0.5px;
+  }
+  .ticket-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+
+  /* ---------- SPONSOR SECTION accents ---------- */
+  #sponsors{background:var(--bg-soft);}
+  .budget-hint{font-size:11.5px;color:var(--text-faint);margin-top:6px;}
+
+  footer{
+    padding:50px 24px 40px;text-align:center;border-top:1px solid var(--line);
+  }
+  footer .logo-img{margin:0 auto 18px;height:34px;}
+  footer p{color:var(--text-faint);font-size:13px;max-width:480px;margin:6px auto;}
+  footer a.email{color:var(--blue);text-decoration:none;font-weight:600;}
+
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <img class="logo-img" src="logo-ody-z.jpg" alt="THE ODY-Z">
+    <nav class="nav-links">
+      <a href="#the-night">The Night</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#sponsors">Partner With Us</a>
+    </nav>
+    <a href="#rsvp" class="btn btn-primary nav-cta">RSVP</a>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-bg" src="hero-wide.jpg" alt="" aria-hidden="true">
+  <div class="hero-scrim"></div>
+  <canvas id="embers"></canvas>
+  <div class="hero-inner">
+    <span class="eyebrow">A Z Hostel Street Takeover</span>
+    <img class="hero-logo" src="logo-ody-z.jpg" alt="THE ODY-Z">
+    <div class="date">10 · 31 · 2026</div>
+    <p class="tagline">One night. One street. No rules but the ones you bring with you. Come in character — or don't come at all.</p>
+    <div class="hero-ctas">
+      <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
+      <a href="#sponsors" class="btn btn-ghost">Partner With Us</a>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="cell"><span class="num" id="cd-days">–</span><span class="lbl">Days</span></div>
+      <div class="cell"><span class="num" id="cd-hours">–</span><span class="lbl">Hrs</span></div>
+      <div class="cell"><span class="num" id="cd-mins">–</span><span class="lbl">Min</span></div>
+      <div class="cell"><span class="num" id="cd-secs">–</span><span class="lbl">Sec</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="the-night">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What To Expect</span>
+      <h2>The street becomes the arena.</h2>
+      <p>Flags overhead, embers in the air, and a crowd that showed up in costume. Bring your people — this is a night built to be shared.</p>
+    </div>
+    <div class="gallery">
+      <figure>
+        <img src="billboard-gowns.jpg" alt="Guests in evening wear looking up at THE ODY-Z billboard" loading="lazy">
+        <figcaption>Dress code: elevated, dramatic, a little dangerous.</figcaption>
+      </figure>
+      <figure>
+        <img src="billboard-helmet.jpg" alt="Guest wearing a gladiator-style helmet ahead of the party" loading="lazy">
+        <figcaption>Or go full character. We won't stop you.</figcaption>
+      </figure>
+    </div>
+    <div class="chips-row">
+      <span class="tag">Live music</span>
+      <span class="tag">Street food</span>
+      <span class="tag">Costume encouraged</span>
+      <span class="tag">18+ event</span>
+      <span class="tag">Photo ops</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ============ RSVP + SURVEY (bundled, one question per screen, auto-saved) ============ -->
+<section id="rsvp">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Guest List</span>
+      <h2>RSVP for the night.</h2>
+      <p>One tap per question. You're on the list the moment you finish step one — everything after that just helps us plan.</p>
+    </div>
+
+    <div class="card">
+      <div class="saved-toast" id="saved-toast">✓ Saved</div>
+      <form id="rsvp-form" novalidate>
+        <div class="progress-bar"><div class="fill" id="progress-fill"></div></div>
+
+        <!-- STEP 1: essentials -->
+        <div class="step active" data-step="essentials">
+          <div class="q-head"><h3>First, the basics</h3><p>Name and email are all we need to put you on the list.</p></div>
+          <div class="row2">
+            <div class="field">
+              <label for="r-name">Full name <span class="req">*</span></label>
+              <input type="text" id="r-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="r-email">Email <span class="req">*</span></label>
+              <input type="email" id="r-email" name="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="r-phone">Phone <span class="opt">(optional, for last-minute updates)</span></label>
+            <input type="tel" id="r-phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label>How many friends are you bringing? <span class="opt">(optional)</span></label>
+            <div class="chipset" data-group="party_size">
+              <div class="chip" data-value="Solo">Solo</div>
+              <div class="chip" data-value="1-2">1–2</div>
+              <div class="chip" data-value="3-5">3–5</div>
+              <div class="chip" data-value="6+">6+</div>
+            </div>
+          </div>
+          <div class="helper" style="margin-bottom:14px;">You're saved on the guest list as soon as you hit Continue — the rest is optional.</div>
+          <div class="step-actions">
+            <span></span>
+            <button type="button" class="btn btn-primary" data-action="save-essentials">Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP: drink preference -->
+        <div class="step" data-step="drink_pref">
+          <div class="perk-note">💡 <span><b>You're on the list.</b> These next few are optional, one tap each — answer at least 3 and we'll stamp a bonus perk on your ticket.</span></div>
+          <div class="q-head"><h3>What's usually in your hand at a night out?</h3></div>
+          <div class="chipset big stack ember" data-group="drink_pref" data-autoadvance="true">
+            <div class="chip" data-value="Beer">Beer</div>
+            <div class="chip" data-value="Cocktails">Cocktails</div>
+            <div class="chip" data-value="Wine">Wine</div>
+            <div class="chip" data-value="Matcha / tea-based">Matcha / tea-based</div>
+            <div class="chip" data-value="Mocktails / non-alc">Mocktails / non-alc</div>
+            <div class="chip" data-value="I don't drink">I don't drink</div>
+          </div>
+          <button type="button" class="skip-all" data-action="skip-to-final">Skip all remaining questions — just get my ticket</button>
+        </div>
+
+        <!-- STEP: vape -->
+        <div class="step" data-step="vape">
+          <div class="q-head"><h3>Vape or smoke?</h3></div>
+          <div class="chipset big stack ember" data-group="vape" data-autoadvance="true">
+            <div class="chip" data-value="Regularly">Regularly</div>
+            <div class="chip" data-value="Occasionally">Occasionally</div>
+            <div class="chip" data-value="Never">Never</div>
+            <div class="chip" data-value="Prefer not to say">Prefer not to say</div>
+          </div>
+        </div>
+
+        <!-- STEP: matcha or ube -->
+        <div class="step" data-step="matcha_or_ube">
+          <div class="q-head"><h3>Team Matcha or Team Ube? 👀</h3></div>
+          <div class="chipset big stack ember" data-group="matcha_or_ube" data-autoadvance="true">
+            <div class="chip" data-value="Matcha">Matcha</div>
+            <div class="chip" data-value="Ube">Ube</div>
+            <div class="chip" data-value="Both, don't make me choose">Both, don't make me choose</div>
+          </div>
+        </div>
+
+        <!-- STEP: going out style -->
+        <div class="step" data-step="going_out_style">
+          <div class="q-head"><h3>How do you usually go out?</h3></div>
+          <div class="chipset big stack ember" data-group="going_out_style" data-autoadvance="true">
+            <div class="chip" data-value="Small tight-knit group">Small tight-knit group</div>
+            <div class="chip" data-value="Big group energy">Big group energy</div>
+            <div class="chip" data-value="Solo / meet people there">Solo / meet people there</div>
+          </div>
+        </div>
+
+        <!-- STEP: interests (multi) -->
+        <div class="step" data-step="interests">
+          <div class="q-head"><h3>What are you actually here for?</h3><p>Pick as many as apply.</p></div>
+          <div class="chipset ember multi" data-group="interests" data-multi="true">
+            <div class="chip" data-value="Live music">Live music</div>
+            <div class="chip" data-value="Dancing">Dancing</div>
+            <div class="chip" data-value="Costumes & photo ops">Costumes & photo ops</div>
+            <div class="chip" data-value="Food & drinks">Food & drinks</div>
+            <div class="chip" data-value="Games / contests">Games / contests</div>
+            <div class="chip" data-value="Meeting new people">Meeting new people</div>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="skip-link" data-action="next-step">Skip</button>
+            <button type="button" class="btn btn-primary" data-action="save-interests">Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP: age bracket -->
+        <div class="step" data-step="age_bracket">
+          <div class="q-head"><h3>Age bracket</h3><p>Helps us plan the night — optional.</p></div>
+          <div class="chipset big stack ember" data-group="age_bracket" data-autoadvance="true">
+            <div class="chip" data-value="18-24">18–24</div>
+            <div class="chip" data-value="25-34">25–34</div>
+            <div class="chip" data-value="35-44">35–44</div>
+            <div class="chip" data-value="45+">45+</div>
+          </div>
+        </div>
+
+        <!-- STEP: final -->
+        <div class="step" data-step="final">
+          <div class="q-head"><h3>Last thing</h3><p>Optional — then your ticket's ready.</p></div>
+          <div class="field">
+            <label>Anything else we should know? <span class="opt">(optional)</span></label>
+            <textarea id="r-notes" name="notes" placeholder="Allergies, accessibility needs, a friend you're vouching for..."></textarea>
+          </div>
+          <input type="checkbox" id="r-botcheck" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off">
+          <div class="step-actions">
+            <span></span>
+            <button type="submit" class="btn btn-primary" id="rsvp-submit">Get My Ticket</button>
+          </div>
+          <div class="form-msg err" id="rsvp-err"></div>
+        </div>
+      </form>
+
+      <!-- TICKET REVEAL (shown after successful submit) -->
+      <div class="ticket" id="rsvp-ticket" style="display:none;">
+        <div class="ok-badge">🎟️</div>
+        <h3>You're in.</h3>
+        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.31.</p>
+        <div class="qr-frame"><canvas id="qr-canvas" width="220" height="220"></canvas></div>
+        <div class="ticket-id" id="ticket-id-out"></div>
+        <div class="ticket-name" id="ticket-name-out"></div>
+        <div id="ticket-perk"></div>
+        <div class="ticket-actions">
+          <button type="button" class="btn btn-primary" id="download-ticket">Download Ticket</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ============ SPONSORS ============ -->
+<section id="sponsors">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Brands & Partners</span>
+      <h2>Put your brand on the street.</h2>
+      <p>We're bringing on a short list of sponsors and partners for ODY-Z. Tell us who you are and what you're thinking — we'll follow up directly.</p>
+    </div>
+
+    <div class="card">
+      <form id="sponsor-form" novalidate>
+        <div class="row2">
+          <div class="field">
+            <label for="s-brand">Brand / company <span class="req">*</span></label>
+            <input type="text" id="s-brand" name="brand" required>
+          </div>
+          <div class="field">
+            <label for="s-name">Your name <span class="req">*</span></label>
+            <input type="text" id="s-name" name="contact_name" required>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="s-email">Email <span class="req">*</span></label>
+            <input type="email" id="s-email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="s-social">Website / Instagram <span class="opt">(optional)</span></label>
+            <input type="text" id="s-social" name="social" placeholder="@brand or yourbrand.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>What kind of partnership? <span class="opt">(pick any)</span></label>
+          <div class="chipset multi" data-group="partnership_type" data-multi="true">
+            <div class="chip" data-value="Cash sponsorship">Cash sponsorship</div>
+            <div class="chip" data-value="Product / drink sponsorship">Product / drink sponsorship</div>
+            <div class="chip" data-value="Vendor / booth space">Vendor / booth space</div>
+            <div class="chip" data-value="Media / press">Media / press</div>
+            <div class="chip" data-value="Influencer / talent">Influencer / talent</div>
+            <div class="chip" data-value="Other">Other</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="s-budget">Budget range <span class="opt">(optional — helps us tailor a package)</span></label>
+          <select id="s-budget" name="budget">
+            <option value="">Prefer not to say / let's discuss</option>
+            <option value="Under ₱25k">Under ₱25k</option>
+            <option value="₱25k – ₱100k">₱25k – ₱100k</option>
+            <option value="₱100k – ₱300k">₱100k – ₱300k</option>
+            <option value="₱300k+">₱300k+</option>
+            <option value="In-kind / product only">In-kind / product only</option>
+          </select>
+          <div class="budget-hint">This just helps us pitch the right package — no commitment.</div>
+        </div>
+
+        <div class="field">
+          <label for="s-message">Tell us more <span class="opt">(optional)</span></label>
+          <textarea id="s-message" name="message" placeholder="What are you hoping to get out of this? Any ideas already?"></textarea>
+        </div>
+
+        <input type="checkbox" id="s-botcheck" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn-ember btn-block" id="sponsor-submit">Send Inquiry</button>
+        <div class="form-msg err" id="sponsor-err"></div>
+      </form>
+
+      <div class="ticket" id="sponsor-thanks" style="display:none;">
+        <div class="ok-badge">🤝</div>
+        <h3>Got it.</h3>
+        <p class="sub">Thanks for reaching out — we'll be in touch soon about next steps for ODY-Z.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img class="logo-img" src="logo-ody-z.jpg" alt="THE ODY-Z" style="margin-left:auto;margin-right:auto;">
+  <p>Questions before the night? <a class="email" href="mailto:events@zhostel.com">events@zhostel.com</a></p>
+  <p>Your info is used only to plan ODY-Z and get you through the door — we don't sell it to anyone.</p>
+  <p>© 2026 Soleiya / Z Hostel. THE ODY-Z is an 18+ event.</p>
+</footer>
+
+<script src="qrcode.lib.js"></script>
+<script src="supabase.bundle.js"></script>
+<script>
+/* =========================================================================
+   CONFIG
+   ========================================================================= */
+const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
+const EVENT_DATE_ISO = "2026-10-31T18:00:00+08:00"; // party start, Manila time
+const FALLBACK_EMAIL = "events@zhostel.com"; // shown to guests only if the database call fails
+
+// supabase-js is vendored locally (supabase.bundle.js) rather than
+// loaded from a CDN, so the whole page still works if jsdelivr/unpkg is
+// slow, blocked by a network filter, or down — same reasoning as vendoring
+// the QR library.
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ---------------------------- Countdown ------------------------------- */
+(function countdown(){
+  const target = new Date(EVENT_DATE_ISO).getTime();
+  const els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs'),
+  };
+  function tick(){
+    const now = Date.now();
+    let diff = target - now;
+    if (diff <= 0){ els.d.textContent='0'; els.h.textContent='0'; els.m.textContent='0'; els.s.textContent='0'; return; }
+    const day = Math.floor(diff/86400000); diff -= day*86400000;
+    const hr = Math.floor(diff/3600000); diff -= hr*3600000;
+    const min = Math.floor(diff/60000); diff -= min*60000;
+    const sec = Math.floor(diff/1000);
+    els.d.textContent = day; els.h.textContent = String(hr).padStart(2,'0');
+    els.m.textContent = String(min).padStart(2,'0'); els.s.textContent = String(sec).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ------------------------------ Embers --------------------------------- */
+(function embers(){
+  const canvas = document.getElementById('embers');
+  const ctx = canvas.getContext('2d');
+  let w,h,particles;
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  function makeParticles(){
+    const count = Math.min(70, Math.floor(w/14));
+    particles = Array.from({length: count}, () => spawn());
+  }
+  function spawn(){
+    return {
+      x: Math.random()*w,
+      y: h + Math.random()*100,
+      r: 1 + Math.random()*2.2,
+      speed: 0.3 + Math.random()*1.1,
+      drift: (Math.random()-0.5)*0.6,
+      alpha: 0.2 + Math.random()*0.6,
+      hue: Math.random() > 0.5 ? '255,106,61' : '255,145,66'
+    };
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      p.y -= p.speed;
+      p.x += p.drift;
+      if (p.y < -10){ Object.assign(p, spawn(), {y: h + Math.random()*40}); }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${p.hue},${p.alpha})`;
+      ctx.shadowColor = `rgba(${p.hue},0.8)`;
+      ctx.shadowBlur = 6;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', () => { resize(); makeParticles(); });
+  resize(); makeParticles(); draw();
+})();
+
+/* --------------------------- Chip selectors ----------------------------- */
+function chipValues(groupEl){
+  if (!groupEl) return '';
+  const isMulti = groupEl.dataset.multi === 'true';
+  const sel = [...groupEl.querySelectorAll('.chip.sel')].map(c => c.dataset.value);
+  return isMulti ? sel.join(', ') : (sel[0] || '');
+}
+
+/* ============================================================
+   RSVP: one question per screen, saved to Supabase as they go
+   ============================================================ */
+(function rsvpFlow(){
+  const form = document.getElementById('rsvp-form');
+  const steps = [...form.querySelectorAll('.step')];
+  const stepOrder = steps.map(s => s.dataset.step);
+  const progressFill = document.getElementById('progress-fill');
+  const savedToast = document.getElementById('saved-toast');
+  let currentIndex = 0;
+
+  // Persist a per-guest id across a refresh so partial saves upsert the
+  // same row instead of creating duplicates.
+  function getResponseId(){
+    let id = localStorage.getItem('odyz_rsvp_id');
+    if (!id){
+      id = (crypto.randomUUID ? crypto.randomUUID() : ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+      })));
+      localStorage.setItem('odyz_rsvp_id', id);
+    }
+    return id;
+  }
+  const responseId = getResponseId();
+  const answers = {}; // accumulated in memory; every save sends the full picture
+
+  function showSavedToast(){
+    savedToast.classList.add('show');
+    clearTimeout(showSavedToast._t);
+    showSavedToast._t = setTimeout(() => savedToast.classList.remove('show'), 1400);
+  }
+
+  function withTimeout(promise, ms){
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timed out')), ms)),
+    ]);
+  }
+
+  async function saveProgress(extra){
+    Object.assign(answers, extra);
+    try{
+      const { error } = await withTimeout(
+        supabase.from('rsvps').upsert({
+          id: responseId,
+          updated_at: new Date().toISOString(),
+          ...answers,
+        }),
+        4000
+      );
+      if (error) throw error;
+      showSavedToast();
+      return true;
+    } catch(err){
+      // Never let a slow or dropped connection block the guest's flow — venue
+      // wifi is flaky. Their answers stay in `answers` and get resent whole
+      // on the next save, including the final submit.
+      console.warn('RSVP save failed or timed out (will retry on next save / final submit):', err);
+      return false;
+    }
+  }
+
+  function goToIndex(i){
+    currentIndex = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach(s => s.classList.remove('active'));
+    steps[currentIndex].classList.add('active');
+    progressFill.style.width = Math.round(((currentIndex) / (steps.length - 1)) * 100) + '%';
+    form.closest('.card').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function goToStepName(name){
+    const i = stepOrder.indexOf(name);
+    if (i >= 0) goToIndex(i);
+  }
+  function nextStep(){ goToIndex(currentIndex + 1); }
+
+  // Chip clicks: single-select chips (data-autoadvance) save + advance on tap.
+  // Multi-select chips just toggle; their screen has its own Continue button.
+  document.querySelectorAll('#rsvp-form .chipset').forEach(group => {
+    const isMulti = group.dataset.multi === 'true';
+    group.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      if (isMulti){
+        chip.classList.toggle('sel');
+        chip.classList.toggle('ember-sel', group.classList.contains('ember'));
+      } else {
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('sel','ember-sel'));
+        chip.classList.add('sel');
+        if (group.classList.contains('ember')) chip.classList.add('ember-sel');
+        if (group.dataset.autoadvance === 'true'){
+          const field = group.dataset.group;
+          saveProgress({ [field]: chip.dataset.value });
+          setTimeout(nextStep, 260); // brief pause so the tap registers visually
+        }
+      }
+    });
+  });
+
+  document.querySelector('[data-action="save-essentials"]').addEventListener('click', async () => {
+    const name = document.getElementById('r-name');
+    const email = document.getElementById('r-email');
+    if (!name.value.trim() || !email.value.trim() || !email.checkValidity()){
+      name.reportValidity(); email.reportValidity();
+      return;
+    }
+    const btn = document.querySelector('[data-action="save-essentials"]');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    await saveProgress({
+      name: name.value.trim(),
+      email: email.value.trim(),
+      phone: document.getElementById('r-phone').value.trim(),
+      party_size: chipValues(document.querySelector('[data-group=party_size]')),
+    });
+    btn.disabled = false; btn.textContent = 'Continue';
+    nextStep();
+  });
+
+  document.querySelector('[data-action="save-interests"]').addEventListener('click', async () => {
+    await saveProgress({ interests: chipValues(document.querySelector('[data-group=interests]')) });
+    nextStep();
+  });
+  form.querySelectorAll('[data-action="next-step"]').forEach(btn => btn.addEventListener('click', nextStep));
+  form.querySelectorAll('[data-action="skip-to-final"]').forEach(btn => btn.addEventListener('click', () => goToStepName('final')));
+
+  /* ------------------------------- Ticket / QR ----------------------------- */
+  function genTicketId(){
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let out = '';
+    const rnd = new Uint32Array(6);
+    crypto.getRandomValues(rnd);
+    for (let i=0;i<6;i++) out += chars[rnd[i] % chars.length];
+    return 'ODYZ-' + out;
+  }
+  function renderQR(canvas, text){
+    const qr = qrcode(0, 'M');
+    qr.addData(text);
+    qr.make();
+    const moduleCount = qr.getModuleCount();
+    const size = canvas.width;
+    const scale = size / moduleCount;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,size,size);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0,0,size,size);
+    ctx.fillStyle = '#0a0c0f';
+    for (let r=0;r<moduleCount;r++){
+      for (let c=0;c<moduleCount;c++){
+        if (qr.isDark(r,c)){
+          ctx.fillRect(Math.round(c*scale), Math.round(r*scale), Math.ceil(scale), Math.ceil(scale));
+        }
+      }
+    }
+  }
+  function showErr(el, mailtoSubject, mailtoBody){
+    const link = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+    el.innerHTML = `Something didn't go through on our end, but don't worry — <a href="${link}">tap here to email us your details</a> and we'll get you sorted manually.`;
+    el.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('rsvp-submit');
+    const errBox = document.getElementById('rsvp-err');
+    errBox.classList.remove('show');
+
+    if (document.getElementById('r-botcheck').checked) return; // honeypot tripped, silently drop
+    if (!answers.name || !answers.email){
+      goToIndex(0);
+      return;
+    }
+
+    const ticketId = genTicketId();
+    const finalAnswers = {
+      notes: document.getElementById('r-notes').value.trim(),
+      ticket_id: ticketId,
+      completed: true,
+    };
+    const answeredExtras = ['drink_pref','vape','matcha_or_ube','going_out_style','interests','age_bracket']
+      .filter(k => answers[k]).length;
+    const perk = answeredExtras >= 3 ? 'Skip-the-line at the door' : null;
+    finalAnswers.bonus_perk = perk || 'None';
+
+    btn.disabled = true; btn.textContent = 'Finishing up...';
+    const ok = await saveProgress(finalAnswers);
+    btn.disabled = false; btn.textContent = 'Get My Ticket';
+
+    if (!ok){
+      showErr(errBox, `ODY-Z RSVP — ${answers.name}`,
+        Object.entries(answers).map(([k,v]) => `${k}: ${v}`).join('\n'));
+      return; // their earlier answers are very likely already saved from prior steps
+    }
+
+    form.style.display = 'none';
+    const ticketEl = document.getElementById('rsvp-ticket');
+    ticketEl.style.display = 'block';
+    document.getElementById('ticket-id-out').textContent = ticketId;
+    document.getElementById('ticket-name-out').textContent = answers.name;
+    if (perk){
+      document.getElementById('ticket-perk').innerHTML = `<span class="perk-badge">🎁 ${perk}</span>`;
+    }
+    const qrPayload = `THE ODY-Z 2026-10-31 | ${ticketId} | ${answers.name}`;
+    const canvas = document.getElementById('qr-canvas');
+    renderQR(canvas, qrPayload);
+
+    document.getElementById('download-ticket').addEventListener('click', () => {
+      const out = document.createElement('canvas');
+      out.width = 420; out.height = 560;
+      const octx = out.getContext('2d');
+      octx.fillStyle = '#0a0c0f'; octx.fillRect(0,0,out.width,out.height);
+      octx.strokeStyle = 'rgba(79,157,255,0.4)'; octx.lineWidth = 2;
+      octx.strokeRect(10,10,out.width-20,out.height-20);
+      octx.fillStyle = '#4f9dff'; octx.font = '700 22px sans-serif'; octx.textAlign='center';
+      octx.fillText('THE ODY-Z', out.width/2, 50);
+      octx.fillStyle = '#a8adb5'; octx.font = '600 13px sans-serif';
+      octx.fillText('OCT 31 2026 · DOORS OPEN 6PM', out.width/2, 74);
+      octx.fillStyle = '#ffffff'; octx.fillRect(out.width/2-120,100,240,240);
+      octx.drawImage(canvas, out.width/2-110, 110, 220, 220);
+      octx.fillStyle = '#f2f2f0'; octx.font = '700 18px sans-serif';
+      octx.fillText(answers.name, out.width/2, 372);
+      octx.fillStyle = '#4f9dff'; octx.font = '700 16px sans-serif'; octx.letterSpacing='2px';
+      octx.fillText(ticketId, out.width/2, 398);
+      octx.fillStyle = '#6b7078'; octx.font = '500 11px sans-serif';
+      octx.fillText('Show this QR at the door', out.width/2, 430);
+      if (perk){
+        octx.fillStyle = '#ff9142'; octx.font = '700 12px sans-serif';
+        octx.fillText(perk.toUpperCase(), out.width/2, 460);
+      }
+      const link = document.createElement('a');
+      link.download = `ody-z-ticket-${ticketId}.png`;
+      link.href = out.toDataURL('image/png');
+      link.click();
+    }, { once:true });
+  });
+})();
+
+/* ------------------------------ Sponsor submit --------------------------- */
+document.getElementById('sponsor-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('sponsor-submit');
+  const errBox = document.getElementById('sponsor-err');
+  errBox.classList.remove('show');
+
+  if (document.getElementById('s-botcheck').checked) return;
+
+  const brand = document.getElementById('s-brand').value.trim();
+  const contact = document.getElementById('s-name').value.trim();
+  const email = document.getElementById('s-email').value.trim();
+  if (!brand || !contact || !email) return;
+
+  const payload = {
+    brand, contact_name: contact, email,
+    social: document.getElementById('s-social').value.trim(),
+    partnership_type: chipValues(document.querySelector('[data-group=partnership_type]')),
+    budget: document.getElementById('s-budget').value,
+    message: document.getElementById('s-message').value.trim(),
+  };
+
+  btn.disabled = true; btn.textContent = 'Sending...';
+  const { error } = await supabase.from('sponsors').insert(payload);
+  btn.disabled = false; btn.textContent = 'Send Inquiry';
+
+  if (error){
+    const link = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('ODY-Z Sponsor Inquiry — ' + brand)}&body=${encodeURIComponent(Object.entries(payload).map(([k,v]) => `${k}: ${v}`).join('\n'))}`;
+    errBox.innerHTML = `Something didn't go through on our end. <a href="${link}">Tap here to send us your info by email instead</a> and we'll take it from there.`;
+    errBox.classList.add('show');
+    return;
+  }
+
+  document.getElementById('sponsor-form').style.display = 'none';
+  document.getElementById('sponsor-thanks').style.display = 'block';
+});
+</script>
+</body>
+</html>
