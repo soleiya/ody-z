@@ -683,6 +683,10 @@ function chipValues(groupEl){
   }
   const responseId = getResponseId();
   const answers = {}; // accumulated in memory; every save sends the full picture
+  // Whether we know this row already exists server-side. Starts false every
+  // page load (we don't trust localStorage alone); flips true after the
+  // first successful insert/update so later saves skip straight to update.
+  let rowExists = false;
 
   function showSavedToast(){
     savedToast.classList.add('show');
@@ -699,16 +703,35 @@ function chipValues(groupEl){
 
   async function saveProgress(extra){
     Object.assign(answers, extra);
+    const payload = {
+      id: responseId,
+      updated_at: new Date().toISOString(),
+      ...answers,
+    };
     try{
-      const { error } = await withTimeout(
-        supabase.from('rsvps').upsert({
-          id: responseId,
-          updated_at: new Date().toISOString(),
-          ...answers,
-        }),
-        4000
-      );
-      if (error) throw error;
+      // Plain insert/update instead of upsert(): upsert compiles to an
+      // INSERT ... ON CONFLICT DO UPDATE, which Postgres only allows a role
+      // to run if that role also holds SELECT on the table (needed to check
+      // the conflict target) — which would mean granting the anon role
+      // read access to every guest's answers just to make writes work.
+      // Instead we try INSERT first (needs only INSERT privilege) and fall
+      // back to UPDATE on a duplicate-key conflict (needs only UPDATE +
+      // SELECT on the id column, already granted) — same end result, no
+      // broad read grant required.
+      let result;
+      if (rowExists){
+        result = await withTimeout(supabase.from('rsvps').update(payload).eq('id', responseId), 4000);
+      } else {
+        result = await withTimeout(supabase.from('rsvps').insert(payload), 4000);
+        if (!result.error){
+          rowExists = true;
+        } else if (result.error.code === '23505'){
+          // Row already existed (e.g. resumed on a new tab/session) — update it.
+          result = await withTimeout(supabase.from('rsvps').update(payload).eq('id', responseId), 4000);
+          if (!result.error) rowExists = true;
+        }
+      }
+      if (result.error) throw result.error;
       showSavedToast();
       return true;
     } catch(err){
