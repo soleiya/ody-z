@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE ODY-Z — Street Party — 10.31.2026</title>
-<meta name="description" content="THE ODY-Z — a Halloween street party. October 31, 2026. RSVP, partner with us, or just come as you are.">
+<title>THE ODY-Z — Street Party — 10.30.2026</title>
+<meta name="description" content="THE ODY-Z — a Halloween street party. October 30, 2026. RSVP, partner with us, or just come as you are.">
 <link rel="icon" href="assets/logo-ody-z.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,13 +74,30 @@
     background:rgba(7,8,10,0.75);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1080px;margin:0 auto;gap:10px;}
+  .nav{position:relative;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1080px;margin:0 auto;gap:10px;}
   .logo-img{height:57px;width:auto;flex-shrink:0;}
   @media(min-width:820px){.logo-img{height:60px;}}
   .nav-links{display:none;gap:6px;align-items:center;}
   .nav-links a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--text-dim);white-space:nowrap;}
+  .nav-links a.active{color:var(--text);background:var(--panel-2);}
   .nav-links a:hover{color:var(--text);background:var(--panel-2);}
   @media(min-width:820px){.nav-links{display:flex;}}
+  .nav-links.open{
+    display:flex;position:absolute;top:100%;left:20px;right:20px;
+    flex-direction:column;gap:2px;padding:12px 6px 18px;
+    background:var(--bg);border:1px solid var(--line);border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+  }
+  .nav-links.open a{padding:12px 14px;}
+  @media(min-width:820px){.nav-links.open{position:static;border:none;padding:0;background:none;}}
+  .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .nav-toggle{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);
+    background:transparent;color:var(--text);cursor:pointer;flex-shrink:0;padding:0;
+  }
+  .nav-toggle svg{width:20px;height:20px;}
+  @media(min-width:820px){.nav-toggle{display:none;}}
   .nav-cta{padding:10px 18px;font-size:13px;flex-shrink:0;}
   @media(min-width:820px){.nav-cta{padding:15px 28px;font-size:15px;}}
 
@@ -299,9 +316,31 @@
       <a href="index.html#rsvp">RSVP</a>
       <a href="partners.html">Partners</a>
     </nav>
-    <a href="index.html#rsvp" class="btn btn-primary nav-cta">RSVP</a>
+    <div class="nav-right">
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="index.html#rsvp" class="btn btn-primary nav-cta">RSVP</a>
+    </div>
   </div>
 </header>
+<script>
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.querySelector('.nav-links');
+  if(!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var isOpen = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
 
 <section class="hero">
   <div class="hero-media">
@@ -312,7 +351,7 @@
   <div class="hero-inner">
     <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
     <span class="eyebrow">A Homecoming — <img src="assets/z-mark.png" alt="Z" style="display:inline-block;height:1.4em;width:auto;vertical-align:middle;margin:0 2px;"> Hostel Street Takeover</span>
-    <div class="date">10 · 31 · 2026</div>
+    <div class="date">10 · 30 · 2026</div>
     <p class="tagline">The journey began in Poblacion. This year, it comes home. Heed the calling — gather your crew and set sail for one immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
@@ -487,7 +526,7 @@
       <div class="ticket" id="rsvp-ticket" style="display:none;">
         <div class="ok-badge">🎟️</div>
         <h3>You're in.</h3>
-        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.31.</p>
+        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.30.</p>
         <div class="qr-frame"><canvas id="qr-canvas" width="220" height="220"></canvas></div>
         <div class="ticket-id" id="ticket-id-out"></div>
         <div class="ticket-name" id="ticket-name-out"></div>
@@ -597,7 +636,7 @@
   </div>
   <p style="margin-top:2px;"><a href="the-legend.html" style="color:var(--text-dim);text-decoration:underline;">The Legend</a> &nbsp;·&nbsp; <a href="the-block.html" style="color:var(--text-dim);text-decoration:underline;">The Block</a> &nbsp;·&nbsp; <a href="index.html#rsvp" style="color:var(--text-dim);text-decoration:underline;">RSVP</a> &nbsp;·&nbsp; <a href="partners.html" style="color:var(--text-dim);text-decoration:underline;">Partners</a></p>
   <p>Questions before the night? <a class="email" href="mailto:marketing@zhostel.com">marketing@zhostel.com</a></p>
-  <p>© 2026 Soleiya / Z Hostel. THE ODY-Z is an 18+ event.</p>
+  <p>© 2026 Z Hostel. THE ODY-Z is an 18+ event.</p>
 </footer>
 
 <script src="assets/qrcode.lib.js"></script>
@@ -608,7 +647,7 @@
    ========================================================================= */
 const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
-const EVENT_DATE_ISO = "2026-10-31T18:00:00+08:00"; // party start, Manila time
+const EVENT_DATE_ISO = "2026-10-30T18:00:00+08:00"; // party start, Manila time
 const FALLBACK_EMAIL = "marketing@zhostel.com"; // shown to guests only if the database call fails
 
 // supabase-js is vendored locally (assets/supabase.bundle.js) rather than
@@ -924,7 +963,7 @@ function chipValues(groupEl){
     if (perk){
       document.getElementById('ticket-perk').innerHTML = `<span class="perk-badge">🎁 ${perk}</span>`;
     }
-    const qrPayload = `THE ODY-Z 2026-10-31 | ${ticketId} | ${answers.name}`;
+    const qrPayload = `THE ODY-Z 2026-10-30 | ${ticketId} | ${answers.name}`;
     const canvas = document.getElementById('qr-canvas');
     renderQR(canvas, qrPayload);
 
@@ -938,7 +977,7 @@ function chipValues(groupEl){
       octx.fillStyle = '#4f9dff'; octx.font = '700 22px sans-serif'; octx.textAlign='center';
       octx.fillText('THE ODY-Z', out.width/2, 50);
       octx.fillStyle = '#a8adb5'; octx.font = '600 13px sans-serif';
-      octx.fillText('OCT 31 2026 · DOORS OPEN 6PM', out.width/2, 74);
+      octx.fillText('OCT 30 2026 · DOORS OPEN 6PM', out.width/2, 74);
       octx.fillStyle = '#ffffff'; octx.fillRect(out.width/2-120,100,240,240);
       octx.drawImage(canvas, out.width/2-110, 110, 220, 220);
       octx.fillStyle = '#f2f2f0'; octx.font = '700 18px sans-serif';
