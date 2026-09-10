@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE ODY-Z — Street Party — 10.30.2026</title>
-<meta name="description" content="THE ODY-Z — a Halloween street party. October 30, 2026. RSVP, partner with us, or just come as you are.">
+<title>THE ODY-Z — Street Party — 10.31.2026</title>
+<meta name="description" content="THE ODY-Z — a Halloween street party. October 31, 2026. RSVP, partner with us, or just come as you are.">
 <link rel="icon" href="assets/logo-ody-z.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,6 +52,9 @@
     font-family:'Inter',sans-serif;font-weight:700;letter-spacing:3px;text-transform:uppercase;
     font-size:12px;color:var(--ember-2);
   }
+  .eyebrow-logo{
+    display:inline-block;height:26px;width:auto;vertical-align:-8px;margin:0 2px;border-radius:50%;
+  }
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:15px 28px;border-radius:999px;border:none;cursor:pointer;
@@ -78,8 +81,7 @@
   .logo-img{height:57px;width:auto;flex-shrink:0;}
   @media(min-width:820px){.logo-img{height:60px;}}
   .nav-links{display:none;gap:6px;align-items:center;}
-  .nav-links a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--text-dim);white-space:nowrap;}
-  .nav-links a.active{color:var(--text);background:var(--panel-2);}
+  .nav-links a{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--text-dim);white-space:nowrap;text-transform:uppercase;letter-spacing:0.4px;}
   .nav-links a:hover{color:var(--text);background:var(--panel-2);}
   @media(min-width:820px){.nav-links{display:flex;}}
   .nav-links.open{
@@ -311,10 +313,10 @@
     <a href="index.html" style="display:flex;"><img class="logo-img" src="assets/logo-nav.jpg" alt="THE ODY-Z"></a>
     <nav class="nav-links">
       <a href="index.html#the-night">The Night</a>
-      <a href="the-legend.html">The Legend</a>
+      <a href="the-legend.html">Z Pob Parties</a>
       <a href="the-block.html">The Block</a>
       <a href="index.html#rsvp">RSVP</a>
-      <a href="partners.html">Partners</a>
+      <a href="partners.html">Sponsors</a>
     </nav>
     <div class="nav-right">
       <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
@@ -350,12 +352,12 @@
   <canvas id="embers"></canvas>
   <div class="hero-inner">
     <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
-    <span class="eyebrow">A Homecoming — <img src="assets/z-mark.png" alt="Z" style="display:inline-block;height:1.4em;width:auto;vertical-align:middle;margin:0 2px;"> Hostel Street Takeover</span>
-    <div class="date">10 · 30 · 2026</div>
+    <span class="eyebrow">A Homecoming — <img src="assets/z-mark-circle.png" alt="Z Hostel" class="eyebrow-logo"> Street Takeover</span>
+    <div class="date">10 · 31 · 2026</div>
     <p class="tagline">The journey began in Poblacion. This year, it comes home. Heed the calling — gather your crew and set sail for one immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
-      <a href="partners.html" class="btn btn-ghost">Partner With Us</a>
+      <a href="partners.html" class="btn btn-ghost">Become an Official Sponsor</a>
     </div>
     <div class="countdown" id="countdown">
       <div class="cell"><span class="num" id="cd-days">–</span><span class="lbl">Days</span></div>
@@ -389,6 +391,20 @@
       <span class="tag">Costume encouraged</span>
       <span class="tag">18+ event</span>
       <span class="tag">Photo ops</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ============ THE BLOCK (teaser) ============ -->
+<section id="block-teaser">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Not Just One Building</span>
+      <h2>Meet the block.</h2>
+      <p>THE ODY-Z runs across two buildings on the same corner — Z Hostel, home base since 2017, and the Vine Building right across the street, bringing its own eight tenants into the takeover.</p>
+      <p style="margin-top:22px;"><a href="the-block.html" class="btn btn-ghost">See What's On The Block</a></p>
     </div>
   </div>
 </section>
@@ -526,7 +542,7 @@
       <div class="ticket" id="rsvp-ticket" style="display:none;">
         <div class="ok-badge">🎟️</div>
         <h3>You're in.</h3>
-        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.30.</p>
+        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.31.</p>
         <div class="qr-frame"><canvas id="qr-canvas" width="220" height="220"></canvas></div>
         <div class="ticket-id" id="ticket-id-out"></div>
         <div class="ticket-name" id="ticket-name-out"></div>
@@ -545,9 +561,9 @@
 <section id="sponsors">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Brands & Partners</span>
+      <span class="eyebrow">Official Sponsors — Let's Team Up</span>
       <h2>Put your brand on the street.</h2>
-      <p>Ten years of Z Street parties. 300,000+ attendees and counting. See the numbers and the packages on <a href="partners.html" style="color:var(--blue);font-weight:700;">our partners page</a> — then tell us who you are below and we'll follow up directly.</p>
+      <p>Ten years of Z Street parties. 300,000+ attendees and counting. See the numbers and the packages on <a href="partners.html" style="color:var(--blue);font-weight:700;">our sponsors page</a> — then tell us who you are below and we'll follow up directly.</p>
     </div>
 
     <div class="card">
@@ -574,14 +590,14 @@
         </div>
 
         <div class="field">
-          <label>What kind of partnership? <span class="opt">(pick any)</span></label>
+          <label>What best describes you? <span class="opt">(pick any)</span></label>
           <div class="chipset multi" data-group="partnership_type" data-multi="true">
-            <div class="chip" data-value="Cash sponsorship">Cash sponsorship</div>
-            <div class="chip" data-value="Product / drink sponsorship">Product / drink sponsorship</div>
-            <div class="chip" data-value="Vendor / booth space">Vendor / booth space</div>
-            <div class="chip" data-value="Media / press">Media / press</div>
-            <div class="chip" data-value="Influencer / talent">Influencer / talent</div>
-            <div class="chip" data-value="Other">Other</div>
+            <div class="chip" data-value="Collaborators">Collaborators</div>
+            <div class="chip" data-value="Influencers">Influencers</div>
+            <div class="chip" data-value="Creative Minds">Creative Minds</div>
+            <div class="chip" data-value="Vendors">Vendors</div>
+            <div class="chip" data-value="Media">Media</div>
+            <div class="chip" data-value="Others">Others</div>
           </div>
         </div>
 
@@ -634,9 +650,9 @@
       @zhostelph
     </a>
   </div>
-  <p style="margin-top:2px;"><a href="the-legend.html" style="color:var(--text-dim);text-decoration:underline;">The Legend</a> &nbsp;·&nbsp; <a href="the-block.html" style="color:var(--text-dim);text-decoration:underline;">The Block</a> &nbsp;·&nbsp; <a href="index.html#rsvp" style="color:var(--text-dim);text-decoration:underline;">RSVP</a> &nbsp;·&nbsp; <a href="partners.html" style="color:var(--text-dim);text-decoration:underline;">Partners</a></p>
+  <p style="margin-top:2px;"><a href="the-legend.html" style="color:var(--text-dim);text-decoration:underline;">Z Pob Parties</a> &nbsp;·&nbsp; <a href="the-block.html" style="color:var(--text-dim);text-decoration:underline;">The Block</a> &nbsp;·&nbsp; <a href="index.html#rsvp" style="color:var(--text-dim);text-decoration:underline;">RSVP</a> &nbsp;·&nbsp; <a href="partners.html" style="color:var(--text-dim);text-decoration:underline;">Sponsors</a></p>
   <p>Questions before the night? <a class="email" href="mailto:marketing@zhostel.com">marketing@zhostel.com</a></p>
-  <p>© 2026 Z Hostel. THE ODY-Z is an 18+ event.</p>
+  <p>© 2026 Soleiya / Z Hostel. THE ODY-Z is an 18+ event.</p>
 </footer>
 
 <script src="assets/qrcode.lib.js"></script>
@@ -647,7 +663,7 @@
    ========================================================================= */
 const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
-const EVENT_DATE_ISO = "2026-10-30T18:00:00+08:00"; // party start, Manila time
+const EVENT_DATE_ISO = "2026-10-31T18:00:00+08:00"; // party start, Manila time
 const FALLBACK_EMAIL = "marketing@zhostel.com"; // shown to guests only if the database call fails
 
 // supabase-js is vendored locally (assets/supabase.bundle.js) rather than
@@ -963,7 +979,7 @@ function chipValues(groupEl){
     if (perk){
       document.getElementById('ticket-perk').innerHTML = `<span class="perk-badge">🎁 ${perk}</span>`;
     }
-    const qrPayload = `THE ODY-Z 2026-10-30 | ${ticketId} | ${answers.name}`;
+    const qrPayload = `THE ODY-Z 2026-10-31 | ${ticketId} | ${answers.name}`;
     const canvas = document.getElementById('qr-canvas');
     renderQR(canvas, qrPayload);
 
@@ -977,7 +993,7 @@ function chipValues(groupEl){
       octx.fillStyle = '#4f9dff'; octx.font = '700 22px sans-serif'; octx.textAlign='center';
       octx.fillText('THE ODY-Z', out.width/2, 50);
       octx.fillStyle = '#a8adb5'; octx.font = '600 13px sans-serif';
-      octx.fillText('OCT 30 2026 · DOORS OPEN 6PM', out.width/2, 74);
+      octx.fillText('OCT 31 2026 · DOORS OPEN 6PM', out.width/2, 74);
       octx.fillStyle = '#ffffff'; octx.fillRect(out.width/2-120,100,240,240);
       octx.drawImage(canvas, out.width/2-110, 110, 220, 220);
       octx.fillStyle = '#f2f2f0'; octx.font = '700 18px sans-serif';
