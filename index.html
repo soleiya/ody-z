@@ -281,6 +281,9 @@
     background:linear-gradient(135deg,var(--ember-2),var(--ember));color:#2a0d02;
     font-size:12px;font-weight:800;letter-spacing:0.5px;
   }
+  .perk-fineprint{
+    margin-top:8px;font-size:11px;color:var(--text-faint);line-height:1.5;
+  }
   .ticket-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
 
   /* ---------- SPONSOR SECTION accents ---------- */
@@ -456,6 +459,7 @@
             <span></span>
             <button type="button" class="btn btn-primary" data-action="save-essentials">Continue</button>
           </div>
+          <div class="form-msg err" id="r-essentials-err"></div>
         </div>
 
         <!-- STEP: drink preference -->
@@ -816,7 +820,20 @@ function chipValues(groupEl){
         if (!result.error){
           rowExists = true;
         } else if (result.error.code === '23505'){
-          // Row already existed (e.g. resumed on a new tab/session) — update it.
+          // A unique-constraint conflict on insert can mean one of two very
+          // different things now that emails are also unique: either (a) our
+          // own row already exists under this id (e.g. resumed on a new tab —
+          // safe to just update), or (b) a DIFFERENT browser/session already
+          // claimed this exact email (e.g. the friendly pre-check in the
+          // essentials-step handler got skipped or raced). We must not treat
+          // (b) as (a) — that would "update" by our own random id, matching
+          // zero rows, and silently hand out a ticket with no real DB row
+          // behind it. Distinguish by inspecting the constraint name Postgres
+          // reports in the error details/message.
+          const errText = `${result.error.message || ''} ${result.error.details || ''}`.toLowerCase();
+          if (errText.includes('email')){
+            return 'duplicate';
+          }
           result = await withTimeout(supabase.rpc('rsvp_update_progress', { p_id: responseId, p_fields: answers }), 4000);
           if (!result.error) rowExists = true;
         }
@@ -829,6 +846,23 @@ function chipValues(groupEl){
       // wifi is flaky. Their answers stay in `answers` and get resent whole
       // on the next save, including the final submit.
       console.warn('RSVP save failed or timed out (will retry on next save / final submit):', err);
+      return false;
+    }
+  }
+
+  // Friendly pre-check: is this email already on the list? Called before the
+  // essentials step's first save, so a returning guest finds out immediately
+  // instead of filling the whole survey only to hit a duplicate at the end.
+  // This is a UX nicety only — the real, unbypassable guarantee is the
+  // database's unique index (see the 23505 handling above), so a failed or
+  // timed-out pre-check is not fatal; it just falls through to that backstop.
+  async function checkDuplicateEmail(email){
+    try{
+      const { data, error } = await withTimeout(supabase.rpc('rsvp_email_exists', { p_email: email }), 4000);
+      if (error) return false;
+      return !!data;
+    } catch(err){
+      console.warn('Duplicate-email pre-check failed (will still be enforced by the database):', err);
       return false;
     }
   }
@@ -880,19 +914,40 @@ function chipValues(groupEl){
   document.querySelector('[data-action="save-essentials"]').addEventListener('click', async () => {
     const name = document.getElementById('r-name');
     const email = document.getElementById('r-email');
+    const essentialsErr = document.getElementById('r-essentials-err');
+    essentialsErr.classList.remove('show');
     if (!name.value.trim() || !email.value.trim() || !email.checkValidity()){
       name.reportValidity(); email.reportValidity();
       return;
     }
     const btn = document.querySelector('[data-action="save-essentials"]');
-    btn.disabled = true; btn.textContent = 'Saving...';
-    await saveProgress({
+    btn.disabled = true; btn.textContent = 'Checking...';
+
+    const emailTrimmed = email.value.trim();
+    // Only worth checking before we've committed a row of our own — once
+    // rowExists is true this browser already IS that row, so its own email
+    // will (correctly) come back as "exists" and must not be flagged.
+    if (!rowExists && await checkDuplicateEmail(emailTrimmed)){
+      btn.disabled = false; btn.textContent = 'Continue';
+      essentialsErr.innerHTML = `Looks like <b>${emailTrimmed}</b> is already on the list. Check your downloads or inbox for your ticket — or <a href="mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('ODY-Z — already RSVP\'d?')}">email us</a> if you can't find it.`;
+      essentialsErr.classList.add('show');
+      return;
+    }
+
+    btn.textContent = 'Saving...';
+    const result = await saveProgress({
       name: name.value.trim(),
-      email: email.value.trim(),
+      email: emailTrimmed,
       phone: document.getElementById('r-phone').value.trim(),
       party_size: chipValues(document.querySelector('[data-group=party_size]')),
     });
     btn.disabled = false; btn.textContent = 'Continue';
+
+    if (result === 'duplicate'){
+      essentialsErr.innerHTML = `Looks like <b>${emailTrimmed}</b> is already on the list. Check your downloads or inbox for your ticket — or <a href="mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('ODY-Z — already RSVP\'d?')}">email us</a> if you can't find it.`;
+      essentialsErr.classList.add('show');
+      return;
+    }
     nextStep();
   });
 
@@ -962,10 +1017,15 @@ function chipValues(groupEl){
     finalAnswers.bonus_perk = perk || 'None';
 
     btn.disabled = true; btn.textContent = 'Finishing up...';
-    const ok = await saveProgress(finalAnswers);
+    const result = await saveProgress(finalAnswers);
     btn.disabled = false; btn.textContent = 'Get My Ticket';
 
-    if (!ok){
+    if (result === 'duplicate'){
+      errBox.innerHTML = `Looks like <b>${answers.email}</b> is already on the list. Check your downloads or inbox for your ticket — or <a href="mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('ODY-Z — already RSVP\'d?')}">email us</a> if you can't find it.`;
+      errBox.classList.add('show');
+      return;
+    }
+    if (!result){
       showErr(errBox, `ODY-Z RSVP — ${answers.name}`,
         Object.entries(answers).map(([k,v]) => `${k}: ${v}`).join('\n'));
       return; // their earlier answers are very likely already saved from prior steps
@@ -976,10 +1036,17 @@ function chipValues(groupEl){
     ticketEl.style.display = 'block';
     document.getElementById('ticket-id-out').textContent = ticketId;
     document.getElementById('ticket-name-out').textContent = answers.name;
-    if (perk){
-      document.getElementById('ticket-perk').innerHTML = `<span class="perk-badge">🎁 ${perk}</span>`;
-    }
-    const qrPayload = `THE ODY-Z 2026-10-30 | ${ticketId} | ${answers.name}`;
+    const perkBadges = [];
+    if (perk) perkBadges.push(`<span class="perk-badge">🎁 ${perk}</span>`);
+    perkBadges.push(`<span class="perk-badge">🏨 ₱100 off your next Z Hostel stay</span>`);
+    document.getElementById('ticket-perk').innerHTML = perkBadges.join(' ') +
+      `<div class="perk-fineprint">Valid thru Dec 31, 2026 · subject to availability · redeem at Z Hostel front desk with this ticket</div>`;
+    // The QR encodes only an opaque ticket-ID lookup URL — never name or
+    // email in the QR itself. Any phone's stock camera opens it straight to
+    // the door-staff check-in page, which looks the guest up fresh from the
+    // database (see checkin.html) rather than trusting whatever text a QR
+    // happens to contain.
+    const qrPayload = new URL(`checkin.html?t=${encodeURIComponent(ticketId)}`, location.href).href;
     const canvas = document.getElementById('qr-canvas');
     renderQR(canvas, qrPayload);
 
@@ -1002,10 +1069,16 @@ function chipValues(groupEl){
       octx.fillText(ticketId, out.width/2, 398);
       octx.fillStyle = '#6b7078'; octx.font = '500 11px sans-serif';
       octx.fillText('Show this QR at the door', out.width/2, 430);
+      let perkY = 460;
       if (perk){
         octx.fillStyle = '#ff9142'; octx.font = '700 12px sans-serif';
-        octx.fillText(perk.toUpperCase(), out.width/2, 460);
+        octx.fillText(perk.toUpperCase(), out.width/2, perkY);
+        perkY += 22;
       }
+      octx.fillStyle = '#ff9142'; octx.font = '700 12px sans-serif';
+      octx.fillText('₱100 OFF YOUR NEXT Z HOSTEL STAY', out.width/2, perkY);
+      octx.fillStyle = '#6b7078'; octx.font = '500 10px sans-serif';
+      octx.fillText('Thru Dec 31, 2026 · subject to availability', out.width/2, perkY + 16);
       const link = document.createElement('a');
       link.download = `ody-z-ticket-${ticketId}.png`;
       link.href = out.toDataURL('image/png');
