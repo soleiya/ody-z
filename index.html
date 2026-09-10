@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE ODY-Z — Street Party — 10.31.2026</title>
-<meta name="description" content="THE ODY-Z — a Halloween street party. October 31, 2026. RSVP, partner with us, or just come as you are.">
+<title>THE ODY-Z — Street Party — 10.30.2026</title>
+<meta name="description" content="THE ODY-Z — a Halloween street party. October 30, 2026. RSVP, partner with us, or just come as you are.">
 <link rel="icon" href="assets/logo-ody-z.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -353,7 +353,7 @@
   <div class="hero-inner">
     <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
     <span class="eyebrow">A Homecoming — <img src="assets/z-mark-circle.png" alt="Z Hostel" class="eyebrow-logo"> Street Takeover</span>
-    <div class="date">10 · 31 · 2026</div>
+    <div class="date">10 · 30 · 2026</div>
     <p class="tagline">The journey began in Poblacion. This year, it comes home. Heed the calling — gather your crew and set sail for one immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
@@ -542,7 +542,7 @@
       <div class="ticket" id="rsvp-ticket" style="display:none;">
         <div class="ok-badge">🎟️</div>
         <h3>You're in.</h3>
-        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.31.</p>
+        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.30.</p>
         <div class="qr-frame"><canvas id="qr-canvas" width="220" height="220"></canvas></div>
         <div class="ticket-id" id="ticket-id-out"></div>
         <div class="ticket-name" id="ticket-name-out"></div>
@@ -663,7 +663,7 @@
    ========================================================================= */
 const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
-const EVENT_DATE_ISO = "2026-10-31T18:00:00+08:00"; // party start, Manila time
+const EVENT_DATE_ISO = "2026-10-30T18:00:00+08:00"; // party start, Manila time
 const FALLBACK_EMAIL = "marketing@zhostel.com"; // shown to guests only if the database call fails
 
 // supabase-js is vendored locally (assets/supabase.bundle.js) rather than
@@ -979,7 +979,7 @@ function chipValues(groupEl){
     if (perk){
       document.getElementById('ticket-perk').innerHTML = `<span class="perk-badge">🎁 ${perk}</span>`;
     }
-    const qrPayload = `THE ODY-Z 2026-10-31 | ${ticketId} | ${answers.name}`;
+    const qrPayload = `THE ODY-Z 2026-10-30 | ${ticketId} | ${answers.name}`;
     const canvas = document.getElementById('qr-canvas');
     renderQR(canvas, qrPayload);
 
@@ -993,7 +993,7 @@ function chipValues(groupEl){
       octx.fillStyle = '#4f9dff'; octx.font = '700 22px sans-serif'; octx.textAlign='center';
       octx.fillText('THE ODY-Z', out.width/2, 50);
       octx.fillStyle = '#a8adb5'; octx.font = '600 13px sans-serif';
-      octx.fillText('OCT 31 2026 · DOORS OPEN 6PM', out.width/2, 74);
+      octx.fillText('OCT 30 2026 · DOORS OPEN 6PM', out.width/2, 74);
       octx.fillStyle = '#ffffff'; octx.fillRect(out.width/2-120,100,240,240);
       octx.drawImage(canvas, out.width/2-110, 110, 220, 220);
       octx.fillStyle = '#f2f2f0'; octx.font = '700 18px sans-serif';
