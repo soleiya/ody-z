@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ODY-Z Door Check-In (Staff Only)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/logo-ody-z.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #07080a;
+    --bg-soft: #0e1013;
+    --panel: #131519;
+    --panel-2: #1a1d22;
+    --line: rgba(255,255,255,0.08);
+    --text: #f2f2f0;
+    --text-dim: #a8adb5;
+    --text-faint: #6b7078;
+    --blue: #4f9dff;
+    --ember: #ff6a3d;
+    --ember-2: #ff9142;
+    --danger: #ff6b6b;
+    --ok: #58d68d;
+    --radius: 14px;
+    --radius-sm: 8px;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:var(--bg);color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    display:flex;flex-direction:column;align-items:center;
+    padding:20px 16px 60px;
+  }
+  h1{
+    font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;
+    font-size:26px;margin:8px 0 2px;text-align:center;
+  }
+  .sub{color:var(--text-faint);font-size:13px;text-align:center;margin-bottom:24px;}
+  .card{
+    width:100%;max-width:420px;
+    background:linear-gradient(160deg,#101319,#0a0c0f);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;margin-bottom:16px;
+  }
+  label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);margin-bottom:8px;}
+  input[type="text"], input[type="password"]{
+    width:100%;padding:14px 16px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+    font-size:17px;font-family:inherit;
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .btn{
+    display:block;width:100%;padding:16px;border-radius:999px;border:none;
+    font-size:16px;font-weight:800;letter-spacing:0.3px;cursor:pointer;
+    margin-top:12px;text-align:center;font-family:inherit;
+  }
+  .btn-primary{background:var(--blue);color:#04070d;}
+  .btn-checkin{background:linear-gradient(135deg,var(--ember-2),var(--ember));color:#2a0d02;}
+  .btn-voucher{background:var(--panel-2);color:var(--text);border:1px solid var(--line);}
+  .btn:disabled{opacity:0.5;cursor:default;}
+  .btn-link{
+    background:none;border:none;color:var(--text-faint);font-size:13px;
+    text-decoration:underline;cursor:pointer;margin-top:16px;font-family:inherit;
+  }
+  .msg{padding:12px 14px;border-radius:var(--radius-sm);font-size:14px;margin-top:14px;display:none;line-height:1.5;}
+  .msg.show{display:block;}
+  .msg.err{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.35);color:#ffb3b3;}
+  .msg.ok{background:rgba(88,214,141,0.12);border:1px solid rgba(88,214,141,0.35);color:#bdf2d4;}
+  .msg.warn{background:rgba(255,145,66,0.12);border:1px solid rgba(255,145,66,0.35);color:#ffd2ac;}
+  .guest-name{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:0.5px;line-height:1.1;margin-bottom:4px;word-break:break-word;}
+  .guest-email{font-size:16px;color:var(--text-dim);word-break:break-all;margin-bottom:14px;}
+  .ticket-tag{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:var(--blue);margin-bottom:18px;}
+  .status-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line);font-size:14px;}
+  .status-row:first-of-type{border-top:none;}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+  .dot.pending{background:var(--text-faint);}
+  .dot.done{background:var(--ok);}
+  .hint{font-size:12px;color:var(--text-faint);margin-top:6px;line-height:1.5;}
+  .divider-txt{text-align:center;color:var(--text-faint);font-size:12px;margin:18px 0 14px;text-transform:uppercase;letter-spacing:1px;}
+</style>
+</head>
+<body>
+
+<h1>ODY-Z DOOR CHECK-IN</h1>
+<p class="sub">Staff tool — verify Name &amp; Email against what the guest says, then check them in.</p>
+
+<!-- ============ PIN GATE ============ -->
+<div class="card" id="gate-card">
+  <label for="pin-input">Staff PIN</label>
+  <input type="password" id="pin-input" inputmode="numeric" autocomplete="off" placeholder="••••">
+  <button class="btn btn-primary" id="pin-submit">Unlock</button>
+  <div class="msg err" id="pin-err">Wrong PIN — try again, or ask whoever's running the door.</div>
+</div>
+
+<!-- ============ MANUAL LOOKUP ============ -->
+<div class="card" id="lookup-card" style="display:none;">
+  <label for="ticket-input">Ticket ID</label>
+  <input type="text" id="ticket-input" placeholder="ODYZ-XXXXXX" autocapitalize="characters" autocomplete="off">
+  <button class="btn btn-primary" id="lookup-submit">Look Up</button>
+  <div class="msg err" id="lookup-err"></div>
+  <div class="hint">Scanning a guest's QR opens this page straight to their ticket — this box is only for typing a ticket ID by hand if a scan won't work.</div>
+</div>
+
+<!-- ============ GUEST RESULT ============ -->
+<div class="card" id="guest-card" style="display:none;">
+  <div class="ticket-tag" id="g-ticket"></div>
+  <div class="guest-name" id="g-name"></div>
+  <div class="guest-email" id="g-email"></div>
+
+  <div class="status-row"><span class="dot" id="dot-checkin"></span><span id="status-checkin"></span></div>
+  <div class="status-row"><span class="dot" id="dot-voucher"></span><span id="status-voucher"></span></div>
+
+  <div class="msg" id="action-msg"></div>
+
+  <button class="btn btn-checkin" id="btn-checkin">Check In</button>
+  <button class="btn btn-voucher" id="btn-voucher">Redeem ₱100 Stay Voucher</button>
+
+  <div class="divider-txt">— next guest —</div>
+  <button class="btn-link" id="btn-reset">Look up another ticket</button>
+</div>
+
+<script src="assets/supabase.bundle.js"></script>
+<script>
+/* =========================================================================
+   CONFIG
+   ========================================================================= */
+const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
+
+// This is a low-stakes, staff-facing convenience gate, NOT real
+// authentication — it lives in page source and anyone who views-source can
+// read it. It exists only to stop a GUEST (every guest's own QR points
+// straight at this page with their own ticket ID baked into the URL) from
+// self-service checking themselves in or redeeming their own voucher before
+// reaching an actual staff member. It is not meant to stop a determined
+// outsider, and it doesn't need to be: every action here still requires the
+// exact ticket ID for the specific guest being acted on (no browsing/listing
+// is possible), so the real backstop is the database itself. Change this
+// string any time — just re-share it with door/front-desk staff.
+const STAFF_PIN = "ODYZ2026";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function withTimeout(promise, ms){
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timed out')), ms)),
+  ]);
+}
+function fmtTime(iso){
+  if (!iso) return '';
+  try{
+    return new Date(iso).toLocaleString('en-PH', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+  } catch(e){ return iso; }
+}
+
+const gateCard = document.getElementById('gate-card');
+const lookupCard = document.getElementById('lookup-card');
+const guestCard = document.getElementById('guest-card');
+const pinInput = document.getElementById('pin-input');
+const pinErr = document.getElementById('pin-err');
+const ticketInput = document.getElementById('ticket-input');
+const lookupErr = document.getElementById('lookup-err');
+const actionMsg = document.getElementById('action-msg');
+
+let currentTicketId = null;
+
+function showLookupScreen(){
+  gateCard.style.display = 'none';
+  guestCard.style.display = 'none';
+  lookupCard.style.display = 'block';
+  lookupErr.classList.remove('show');
+}
+
+function unlock(){
+  sessionStorage.setItem('odyz_staff_unlocked', '1');
+  const params = new URLSearchParams(location.search);
+  const t = params.get('t');
+  if (t){
+    ticketInput.value = t.trim();
+    showLookupScreen();
+    doLookup(t.trim());
+  } else {
+    showLookupScreen();
+  }
+}
+
+document.getElementById('pin-submit').addEventListener('click', () => {
+  if (pinInput.value === STAFF_PIN){
+    pinErr.classList.remove('show');
+    unlock();
+  } else {
+    pinErr.classList.add('show');
+  }
+});
+pinInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('pin-submit').click();
+});
+
+function setMsg(el, text, kind){
+  el.textContent = text;
+  el.className = 'msg show' + (kind ? ' ' + kind : '');
+}
+
+async function doLookup(ticketId){
+  lookupErr.classList.remove('show');
+  guestCard.style.display = 'none';
+  if (!ticketId){
+    lookupErr.textContent = 'Enter a ticket ID.';
+    lookupErr.classList.add('show');
+    return;
+  }
+  const lookupBtn = document.getElementById('lookup-submit');
+  lookupBtn.disabled = true; lookupBtn.textContent = 'Looking up...';
+  try{
+    const { data, error } = await withTimeout(
+      supabase.rpc('rsvp_lookup_ticket', { p_ticket_id: ticketId.trim().toUpperCase() }), 6000);
+    if (error) throw error;
+    if (!data || data.length === 0){
+      lookupErr.textContent = `No RSVP found for "${ticketId}". Double-check the ticket ID, or ask the guest to show the confirmation screen/email.`;
+      lookupErr.classList.add('show');
+      return;
+    }
+    renderGuest(ticketId.trim().toUpperCase(), data[0]);
+  } catch(err){
+    lookupErr.textContent = 'Lookup failed (connection issue) — try again.';
+    lookupErr.classList.add('show');
+    console.warn(err);
+  } finally{
+    lookupBtn.disabled = false; lookupBtn.textContent = 'Look Up';
+  }
+}
+
+// Re-fetches the full row (both check-in and voucher fields) after an action
+// and re-renders — used instead of the partial row an action RPC returns, so
+// the OTHER status (e.g. voucher) never looks reset just because check-in
+// was the thing that changed. resetMsg=false keeps the just-shown success/
+// already-used message on screen instead of wiping it.
+async function refreshTicket(ticketId){
+  try{
+    const { data, error } = await withTimeout(
+      supabase.rpc('rsvp_lookup_ticket', { p_ticket_id: ticketId }), 6000);
+    if (error || !data || data.length === 0) return;
+    renderGuest(ticketId, data[0], false);
+  } catch(err){
+    console.warn('Post-action refresh failed (status shown may be stale until next lookup):', err);
+  }
+}
+
+function renderGuest(ticketId, row, resetMsg){
+  currentTicketId = ticketId;
+  lookupCard.style.display = 'none';
+  guestCard.style.display = 'block';
+  if (resetMsg !== false){
+    actionMsg.className = 'msg';
+    actionMsg.textContent = '';
+  }
+
+  document.getElementById('g-ticket').textContent = ticketId;
+  document.getElementById('g-name').textContent = row.name || '(no name on file)';
+  document.getElementById('g-email').textContent = row.email || '(no email on file)';
+
+  const dotCheckin = document.getElementById('dot-checkin');
+  const statusCheckin = document.getElementById('status-checkin');
+  const dotVoucher = document.getElementById('dot-voucher');
+  const statusVoucher = document.getElementById('status-voucher');
+  const btnCheckin = document.getElementById('btn-checkin');
+  const btnVoucher = document.getElementById('btn-voucher');
+
+  if (row.checked_in_at){
+    dotCheckin.className = 'dot done';
+    statusCheckin.textContent = `Checked in — ${fmtTime(row.checked_in_at)}`;
+    btnCheckin.textContent = 'Already Checked In';
+    btnCheckin.disabled = true;
+  } else {
+    dotCheckin.className = 'dot pending';
+    statusCheckin.textContent = row.bonus_perk && row.bonus_perk !== 'None'
+      ? `Not checked in yet · perk: ${row.bonus_perk}`
+      : 'Not checked in yet';
+    btnCheckin.textContent = 'Check In';
+    btnCheckin.disabled = false;
+  }
+
+  if (row.voucher_redeemed_at){
+    dotVoucher.className = 'dot done';
+    statusVoucher.textContent = `Voucher redeemed — ${fmtTime(row.voucher_redeemed_at)}`;
+    btnVoucher.textContent = 'Voucher Already Redeemed';
+    btnVoucher.disabled = true;
+  } else {
+    dotVoucher.className = 'dot pending';
+    statusVoucher.textContent = '₱100 stay voucher not redeemed yet';
+    btnVoucher.textContent = 'Redeem ₱100 Stay Voucher';
+    btnVoucher.disabled = false;
+  }
+}
+
+document.getElementById('lookup-submit').addEventListener('click', () => doLookup(ticketInput.value));
+ticketInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doLookup(ticketInput.value);
+});
+
+document.getElementById('btn-checkin').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-checkin');
+  btn.disabled = true; btn.textContent = 'Checking in...';
+  try{
+    const { data, error } = await withTimeout(
+      supabase.rpc('rsvp_check_in', { p_ticket_id: currentTicketId }), 6000);
+    if (error) throw error;
+    const row = data && data[0];
+    if (!row){
+      setMsg(actionMsg, 'Something went wrong — try again.', 'err');
+      btn.disabled = false; btn.textContent = 'Check In';
+      return;
+    }
+    if (row.success){
+      setMsg(actionMsg, `✓ ${row.name} checked in just now.`, 'ok');
+    } else {
+      setMsg(actionMsg, `Already checked in earlier (${fmtTime(row.checked_in_at)}) — not checking in twice.`, 'warn');
+    }
+    await refreshTicket(currentTicketId);
+  } catch(err){
+    setMsg(actionMsg, 'Check-in failed (connection issue) — try again.', 'err');
+    btn.disabled = false; btn.textContent = 'Check In';
+    console.warn(err);
+  }
+});
+
+document.getElementById('btn-voucher').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-voucher');
+  btn.disabled = true; btn.textContent = 'Redeeming...';
+  try{
+    const { data, error } = await withTimeout(
+      supabase.rpc('rsvp_redeem_voucher', { p_ticket_id: currentTicketId }), 6000);
+    if (error) throw error;
+    const row = data && data[0];
+    if (!row){
+      setMsg(actionMsg, 'Something went wrong — try again.', 'err');
+      btn.disabled = false; btn.textContent = 'Redeem ₱100 Stay Voucher';
+      return;
+    }
+    if (row.success){
+      setMsg(actionMsg, `✓ ₱100 voucher redeemed for ${row.name} just now.`, 'ok');
+    } else {
+      setMsg(actionMsg, `Voucher was already redeemed earlier (${fmtTime(row.voucher_redeemed_at)}) — not redeeming twice.`, 'warn');
+    }
+    await refreshTicket(currentTicketId);
+  } catch(err){
+    setMsg(actionMsg, 'Redeem failed (connection issue) — try again.', 'err');
+    btn.disabled = false; btn.textContent = 'Redeem ₱100 Stay Voucher';
+    console.warn(err);
+  }
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  ticketInput.value = '';
+  history.replaceState(null, '', location.pathname);
+  showLookupScreen();
+});
+
+/* ---- boot ---- */
+if (sessionStorage.getItem('odyz_staff_unlocked') === '1'){
+  unlock();
+} else {
+  const params = new URLSearchParams(location.search);
+  if (params.get('t')) pinInput.placeholder = 'Enter PIN to view this ticket';
+}
+</script>
+</body>
+</html>
