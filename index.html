@@ -145,9 +145,8 @@
   /* Desktop/tablet: full-bleed photo behind centered copy, as before. */
   @media(min-width:820px){
     .hero{min-height:96vh;display:flex;flex-direction:column;align-items:center;padding:100px 24px 40px;}
-    .hero-inner{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;}
-    .hero-logo{margin:0 auto;width:min(38%,200px);filter:drop-shadow(0 3px 14px rgba(0,0,0,0.6));}
-    .hero-copy{display:flex;flex-direction:column;align-items:center;}
+    .hero-inner{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;}
+    .hero-logo{margin:0 auto 6px;width:min(30%,170px);filter:drop-shadow(0 3px 14px rgba(0,0,0,0.6));}
     .hero-media{position:absolute;inset:0;}
     .hero-bg{position:absolute;inset:0;opacity:0.85;}
     .hero-scrim{
@@ -384,14 +383,12 @@
   <div class="hero-inner">
     <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
     <img src="assets/ody-z-logo-transparent.png" alt="THE ODY-Z" class="hero-logo">
-    <div class="hero-copy">
     <span class="eyebrow">A Poblacion Homecoming Street Party</span>
     <div class="date">10 · 30 · 2026</div>
     <p class="tagline">This Halloween, it comes home. All roads lead back to Poblacion. Heed the calling — gather your crew and set sail for an immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
       <a href="partners.html" class="btn btn-ghost">Become an Official Sponsor</a>
-    </div>
     </div>
     <div class="countdown" id="countdown">
       <div class="cell"><span class="num" id="cd-days">–</span><span class="lbl">Days</span></div>
