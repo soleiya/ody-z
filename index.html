@@ -33,7 +33,7 @@
     color-scheme: dark;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;scroll-padding-top:90px;}
   body{
     margin:0;
     background:var(--bg);
@@ -73,7 +73,11 @@
 
   /* ---------- NAV ---------- */
   header.site{
-    position:sticky;top:0;z-index:50;
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:transparent;border-bottom:1px solid transparent;
+    transition:background .35s ease, border-color .35s ease;
+  }
+  header.site.scrolled{
     background:rgba(7,8,10,0.75);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
@@ -116,6 +120,7 @@
   .hero-scrim{position:absolute;inset:0;}
   #embers{position:absolute;inset:0;width:100%;height:100%;}
   .hero-inner{position:relative;z-index:2;max-width:760px;margin:0 auto;}
+  .hero-logo{display:block;margin:0 auto 18px;width:min(70%,320px);height:auto;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.55));}
   .hero .eyebrow{display:block;margin-bottom:14px;}
   .hero .date{
     margin-top:18px;
@@ -139,7 +144,7 @@
   }
   /* Desktop/tablet: full-bleed photo behind centered copy, as before. */
   @media(min-width:820px){
-    .hero{min-height:96vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;}
+    .hero{min-height:96vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:100px 24px 56px;}
     .hero-media{position:absolute;inset:0;}
     .hero-bg{position:absolute;inset:0;opacity:0.85;}
     .hero-scrim{
@@ -333,7 +338,7 @@
 
 <header class="site">
   <div class="nav">
-    <a href="index.html" style="display:flex;"><img class="logo-img" src="assets/logo-nav.jpg" alt="THE ODY-Z"></a>
+    <a href="index.html" style="display:flex;"><img class="logo-img" src="assets/ody-z-logo-transparent.png" alt="THE ODY-Z"></a>
     <nav class="nav-links">
       <a href="index.html#the-night">The Night</a>
       <a href="the-legend.html">Z Pob Parties</a>
@@ -375,6 +380,7 @@
   <canvas id="embers"></canvas>
   <div class="hero-inner">
     <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
+    <img src="assets/ody-z-logo-transparent.png" alt="THE ODY-Z" class="hero-logo">
     <span class="eyebrow">A Poblacion Homecoming Street Party</span>
     <div class="date">10 · 30 · 2026</div>
     <p class="tagline">This Halloween, it comes home. All roads lead back to Poblacion. Heed the calling — gather your crew and set sail for an immortal night.</p>
@@ -1173,6 +1179,36 @@ document.getElementById('sponsor-form').addEventListener('submit', async (e) => 
   document.getElementById('sponsor-form').style.display = 'none';
   document.getElementById('sponsor-thanks').style.display = 'block';
 });
+</script>
+<script>
+(function(){
+  var header = document.querySelector('header.site');
+  var heroBg = document.querySelector('.hero-bg');
+  var hero = document.querySelector('.hero');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function onScroll(){
+    if(header){
+      if(window.scrollY > 40){ header.classList.add('scrolled'); }
+      else{ header.classList.remove('scrolled'); }
+    }
+    if(heroBg && hero && !reduceMotion && window.innerWidth >= 820){
+      var rect = hero.getBoundingClientRect();
+      var offset = Math.min(Math.max(-rect.top, 0), rect.height);
+      heroBg.style.transform = 'translateY(' + (offset * 0.22) + 'px) scale(1.08)';
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){ onScroll(); ticking = false; });
+      ticking = true;
+    }
+  }, {passive:true});
+
+  onScroll();
+})();
 </script>
 </body>
 </html>
