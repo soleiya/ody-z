@@ -188,7 +188,7 @@ header.top h1{font-size:26px;}
 <thead>
 <tr>
 <th>Name</th><th>Email</th><th>Phone</th><th>Party</th><th>Age</th>
-<th>Staying</th><th>Drink</th><th>Style</th><th>Interests</th>
+<th>Staying</th><th>Drink</th><th>Payment</th><th>Interests</th>
 <th>Ticket</th><th>Status</th><th>Submitted</th>
 </tr>
 </thead>
@@ -368,7 +368,7 @@ const fields = [
 { key: 'age_bracket', title: 'Age bracket' },
 { key: 'staying_over', title: 'Staying arrangement' },
 { key: 'drink_pref', title: 'Drink preference' },
-{ key: 'going_out_style', title: 'Going-out style' },
+{ key: 'going_out_style', title: 'Payment preference' },
 ];
 let html = fields.map(f => renderBreakdownCard(f.title, tally(rows.map(r => r[f.key])))).join('');
 
