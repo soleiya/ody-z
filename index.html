@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE ODY-Z — Street Party — 10.30.2026</title>
-<meta name="description" content="THE ODY-Z — a Halloween street party. October 30, 2026. RSVP, partner with us, or just come as you are.">
+<title>THE ODY-Z — Street Party — November 2026</title>
+<meta name="description" content="THE ODY-Z — a Poblacion street party. November 20, 2026 (date being confirmed). RSVP, partner with us, or just come as you are.">
 <link rel="icon" href="assets/logo-ody-z.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,7 +126,8 @@
     font-family:'Inter',sans-serif;font-weight:800;font-size:20px;letter-spacing:2px;
     color:var(--ember-2);
   }
-  .hero p.tagline{
+  .hero p.hero .date-note{ margin:8px auto 0;font-size:13px;letter-spacing:.5px;color:var(--text-dim); }
+.tagline{
     margin:20px auto 0;max-width:520px;color:var(--text-dim);font-size:17px;
   }
   .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px;}
@@ -380,10 +381,11 @@
   </div>
   <canvas id="embers"></canvas>
   <div class="hero-inner">
-    <h1 class="sr-only">THE ODY-Z — Halloween Street Party, Poblacion</h1>
+    <h1 class="sr-only">THE ODY-Z — Street Party, Poblacion, November 2026</h1>
     <span class="eyebrow">A Poblacion Homecoming Street Party</span>
-    <div class="date">10 · 30 · 2026</div>
-    <p class="tagline">This Halloween, it comes home. All roads lead back to Poblacion. Heed the calling — gather your crew and set sail for an immortal night.</p>
+    <div class="date">11 · 20 · 2026</div>
+    <p class="date-note">Date being confirmed — November 20 is the most likely.</p>
+    <p class="tagline">This November, it comes home. All roads lead back to Poblacion. Heed the calling — gather your crew and set sail for an immortal night.</p>
     <div class="hero-ctas">
       <a href="#rsvp" class="btn btn-primary">RSVP — Get Your Ticket</a>
       <a href="partners.html" class="btn btn-ghost">Become an Official Sponsor</a>
@@ -604,7 +606,7 @@
       <div class="ticket" id="rsvp-ticket" style="display:none;">
         <div class="ok-badge">🎟️</div>
         <h3>You're in.</h3>
-        <p class="sub">Screenshot this or hit download — this QR is your way through the door on 10.30.</p>
+        <p class="sub">Screenshot this or hit download — this QR is your way through the door on Nov 20 (date being confirmed — we'll email you if it changes).</p>
         <div class="qr-frame"><canvas id="qr-canvas" width="220" height="220"></canvas></div>
         <div class="ticket-id" id="ticket-id-out"></div>
         <div class="ticket-name" id="ticket-name-out"></div>
@@ -724,7 +726,7 @@
    ========================================================================= */
 const SUPABASE_URL = "https://tdmveycuxkxihgxewwiq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XId_hgYz7sZ-wbpkKCpHbw_YQvRdtgc";
-const EVENT_DATE_ISO = "2026-10-30T18:00:00+08:00"; // party start, Manila time
+const EVENT_DATE_ISO = "2026-11-20T18:00:00+08:00"; // party start, Manila time
 const FALLBACK_EMAIL = "marketing@zhostel.com"; // shown to guests only if the database call fails
 
 // supabase-js is vendored locally (assets/supabase.bundle.js) rather than
@@ -1117,7 +1119,7 @@ function chipValues(groupEl){
       octx.fillStyle = '#4f9dff'; octx.font = '700 22px sans-serif'; octx.textAlign='center';
       octx.fillText('THE ODY-Z', out.width/2, 50);
       octx.fillStyle = '#a8adb5'; octx.font = '600 13px sans-serif';
-      octx.fillText('OCT 30 2026 · DOORS OPEN 6PM', out.width/2, 74);
+      octx.fillText('NOV 20 2026 (TBC) · DOORS OPEN 6PM', out.width/2, 74);
       octx.fillStyle = '#ffffff'; octx.fillRect(out.width/2-120,100,240,240);
       octx.drawImage(canvas, out.width/2-110, 110, 220, 220);
       octx.fillStyle = '#f2f2f0'; octx.font = '700 18px sans-serif';
